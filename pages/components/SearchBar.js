@@ -8,7 +8,7 @@ function SearchBar(){
                 <div class="grid place-items-center h-full text-gray-300">
                     <AiOutlineSearch className='h-10 w-10 ml-5 mr-3'/>
                 </div>
-                <input class="peer h-14 w-full outline-none text-neutral-500 pr-2" type="search" id="search" placeholder="Rechercher un titre, un album, un artiste..." /> 
+                <input class="peer h-14 w-full outline-none text-neutral-500 pr-2 font-sans" type="search" id="search" placeholder="Rechercher un titre, un album, un artiste..." /> 
             </div>
         </div>
     )
