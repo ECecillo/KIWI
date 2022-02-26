@@ -14,15 +14,4 @@ function SearchBar(){
     )
 };
 
-/*
-<div className="flex justify-center bg-violet-100">
-            <label className='w-full flex justify-center relative'>
-                <input className='w-4/6 h-16 px-10 text-2xl placeholder:text-zinc-400 rounded-full' type={type} placeholder="Rechercher une musique, un album, ..." ></input>                        
-            </label>
-        </div>
-*/
-
-
-//<AiOutlineSearch className='w-8 h-8'/>
-
 export default SearchBar;
