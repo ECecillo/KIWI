@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -29,7 +30,7 @@ model Playlist {
   playlist_image      String? // Si on veut rattacher une image à la playlist.
   playlist_visibility Boolean // Si on veut mettre la playlist en mode publique ou privé. (true: publique, false : privé)
 
-  
+
   owner   User?   @relation(fields: [ownerId], references: [user_id])
   ownerId String?
 
