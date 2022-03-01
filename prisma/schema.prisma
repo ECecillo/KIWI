@@ -11,60 +11,69 @@ datasource db {
 }
 
 model User {
-  user_id            String     @id @default(cuid())
-  user_name          String     @unique
-  user_email         String?    @unique
-  user_emailVerified DateTime?
-  user_image         String?
-  user_description   String?
-  playlists          Playlist[] // Défini le contenu comme une liste de Post. ([])
-  // défini pour prisma le model "users" qui fait référence à la table "User"
-  accounts           Account[]
-  sessions           Session[]
+  user_id          String     @id @default(cuid())
+  user_name        String     @unique
+  user_email       String?    @unique
+  user_image       String?
+  user_description String?
+  playlists        Playlist[] // Défini le contenu comme une liste de Post. ([])
+
+  // Next Auth
+  accounts         Account[]
+  sessions         Session[]
 }
 
 model Playlist {
   playlist_id         String  @id @default(cuid())
   playlist_name       String
-  playlist_image      String?
-  playlist_visibility Boolean
+  playlist_image      String? // Si on veut rattacher une image à la playlist.
+  playlist_visibility Boolean // Si on veut mettre la playlist en mode publique ou privé. (true: publique, false : privé)
 
+  
   owner   User?   @relation(fields: [ownerId], references: [user_id])
   ownerId String?
 
-  song Song[]
+  // Une playlist peut avoir plusieurs musiques.
+  playlist_songs Song[]
 }
 
 model Song {
   song_id    Int    @id @default(autoincrement())
-  spotify_id Int
-  youtube_id Int
+  spotify_id Int // ID associés à la musique correspondant à l'API Spotify
+  youtube_id Int // ID associés à la musique correspondant à l'API Youtube
   song_name  String
   song_year  Int?
 
+  // Une musique peut avoir plusieurs Genre et un Genre peut avoir plusieurs musiques.
+  song_genres Genre[]
+
+  // Une Musique est rattaché à un artiste (même une musique en colab reste à un artiste)
+  song_artist   Artist @relation(fields: [song_artistId], references: [artist_id])
+  song_artistId String
+
+  // Une Musique est dans 1 seul Album.
+  song_album   Album  @relation(fields: [song_albumId], references: [album_id])
+  song_albumId String
+
+  // Une musique appartient à plusieurs playlist.
   song_playlist   Playlist? @relation(fields: [song_playlistId], references: [playlist_id])
   song_playlistId String?
-
-  song_artist   Artist? @relation(fields: [song_artistId], references: [artist_id])
-  song_artistId String?
-
-  song_album         Album?  @relation(fields: [albumAlbum_id], references: [album_id])
-  albumAlbum_id String?
 }
 
 model Artist {
-  artist_id   String @id @default(cuid())
+  artist_id   String @id @default(cuid()) // PK
   artist_name String
 
+  // Un artiste peut avoir plusieurs Musiques.
   artist_song Song[]
-
 }
 
 model Genre {
-  genre_id   String @id @default(cuid())
+  genre_id   String @id @default(cuid()) // PK
   genre_name String
 
-
+  // Un genre peut avoir plusieurs Musiques.
+  genre_songs Song[]
 }
 
 model Album {
@@ -72,6 +81,7 @@ model Album {
   album_name String
   album_year Int
 
+  // Un album peut avoir plusieurs musiques.
   album_song Song[]
 }
 
