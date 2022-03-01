@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.music-infos{
+    grid-template-columns: 5% 30% 30% 10% 30%;
+}
