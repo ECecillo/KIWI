@@ -129,6 +129,7 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+// Va nous permettre de gérer la session active de l'user.
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -137,6 +138,7 @@ model Session {
   user         User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
 }
 
+// Permet de stocker les tokens valides donnée par les providers lors de la connexion.
 model VerificationToken {
   identifier String
   token      String   @unique
