@@ -9,3 +9,127 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  user_id            String     @id @default(cuid())
+  user_name          String     @unique
+  user_email         String?    @unique
+  user_emailVerified DateTime?
+  user_image         String?
+  user_description   String?
+  playlists          Playlist[] // Défini le contenu comme une liste de Post. ([])
+  // défini pour prisma le model "users" qui fait référence à la table "User"
+  accounts           Account[]
+  sessions           Session[]
+}
+
+model Playlist {
+  playlist_id         String  @id @default(cuid())
+  playlist_name       String
+  playlist_image      String?
+  playlist_visibility Boolean
+
+  owner   User?   @relation(fields: [ownerId], references: [user_id])
+  ownerId String?
+
+  song Song[]
+}
+
+model Song {
+  song_id    Int    @id @default(autoincrement())
+  spotify_id Int
+  youtube_id Int
+  song_name  String
+  song_year  Int?
+
+  song_playlist   Playlist? @relation(fields: [song_playlistId], references: [playlist_id])
+  song_playlistId String?
+
+  song_artist   Artist? @relation(fields: [song_artistId], references: [artist_id])
+  song_artistId String?
+
+  song_album         Album?  @relation(fields: [albumAlbum_id], references: [album_id])
+  albumAlbum_id String?
+}
+
+model Artist {
+  artist_id   String @id @default(cuid())
+  artist_name String
+
+  artist_song Song[]
+
+}
+
+model Genre {
+  genre_id   String @id @default(cuid())
+  genre_name String
+
+
+}
+
+model Album {
+  album_id   String @id @default(cuid())
+  album_name String
+  album_year Int
+
+  album_song Song[]
+}
+
+// Les tables nécessaires pour NextAuth :
+// https://next-auth.js.org/adapters/prisma
+
+// ===== Account ======
+// Fourni les informations à OAuth associé aux Users. (contient surtout les infos pour un TokenSet)
+
+// id  :  Primary key
+// type :
+// provider :
+// providerAccountId :
+// refreshToken :
+// accessToken :
+// expiresAt : Temps en seconde pour l'expiration du token.
+// tokenType :
+// scope :
+// idToken :
+// sessionState :
+// oauthTokenSecret :
+// oauthToken :
+
+// user   User @relation(fields: [userId], references: [id], onDelete: Cascade) : 1 utilisateur peut avoir plusieurs compte mais 1 compte a 1 seul User.
+// userId Int
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  user               User    @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
