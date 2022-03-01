@@ -17,7 +17,7 @@ function Content(){
             <SearchBar/>
             <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 '>Ma super playlist</p>
 
-            <div className='music-infos grid grid-cols-5 font-sans uppercase text-neutral-500 text-md px-5 pb-5'>
+            <div className='music-infos grid grid-cols-5 font-sans select-none uppercase text-neutral-500 text-md px-5 pb-5'>
                 <p className=''>#</p>
                 <p>Titre</p>
                 <p>Artiste</p>
