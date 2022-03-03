@@ -6,15 +6,17 @@ import SpotifyProvider from "next-auth/providers/spotify";
 import prisma from '../../../lib/prisma';
 
 export default NextAuth({
-    // Configure one or more authentication providers
-    providers: [
-        GoogleProvider({
-          clientId: process.env.GOOGLE_CLIENT_ID,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET
-        }),
-        SpotifyProvider({
-            clientId: process.env.SPOTIFY_CLIENT_ID,
-            clientSecret: process.env.SPOTIFY_CLIENT_SECRET
-          })
-      ],
-  })
+  // Configure one or more authentication providers
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
+    SpotifyProvider({
+      clientId: process.env.SPOTIFY_CLIENT_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+    })
+  ],
+  adapter: PrismaAdapter(prisma),
+  secret: process.env.SECRET,
+})
