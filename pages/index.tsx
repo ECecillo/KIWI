@@ -1,9 +1,9 @@
 import React from 'react'
-import MyApp from './_app'
+import { signIn, signOut, useSession } from "next-auth/react";
 
-function Home(){
+const Home = () => {
     return(
-        <MyApp/>
+
     )
 }
 export default Home;
