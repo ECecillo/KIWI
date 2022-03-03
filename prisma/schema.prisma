@@ -42,7 +42,10 @@ model Song {
   song_id    Int    @id @default(autoincrement())
   spotify_id Int // ID associés à la musique correspondant à l'API Spotify
   youtube_id Int // ID associés à la musique correspondant à l'API Youtube
-  song_name  String
+
+  spotify_url String // Colonne qui va nous servir à stocker l'url qui permet de jouer la musique à l'url stocké.
+  youtube_url String // Colonne qui va nous servir à stocker l'url qui permet de jouer la musique à l'url stocké.
+  song_name  String  // Nom de la Musique.
   song_year  Int?
 
   // Une musique peut avoir plusieurs Genre et un Genre peut avoir plusieurs musiques.
