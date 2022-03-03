@@ -9,7 +9,7 @@ import React from 'react';
   - deuxième (loading) : bool qui nous dit l'état de connexion de la session (si session === NULL, l'user != connecté).
 */
 import { signIn, signOut, useSession } from "next-auth/react";
-import NavBar from "../NavBar";
+import NavBar from "../navbar/NavBar";
 // Informations de Routage API de NextJS
 import { useRouter } from 'next/router';
 
