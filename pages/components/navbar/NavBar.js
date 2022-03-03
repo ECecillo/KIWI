@@ -4,14 +4,13 @@ import logo from '../../public/kiwi_full_logo.png'
 import profilePicture from '../../public/test-img/doge.jpg'
 
 // react-icons components
-import {MdHomeFilled} from 'react-icons/md'
+import {MdHomeFilled, MdFavorite} from 'react-icons/md'
 import {AiOutlineLineChart} from 'react-icons/ai'
-import {MdFavorite} from 'react-icons/md'
 import {IoGrid} from 'react-icons/io5'
 import {FaUserFriends} from 'react-icons/fa'
 import {GrFormNext} from 'react-icons/gr'
 
-function NavBar() {
+function NavBar(props) {
     const elmtList = [["Accueil",<MdHomeFilled/>], ["Tendances",<AiOutlineLineChart/>], ["Favoris",<MdFavorite/>], ["Playlists",<IoGrid/>], ["Amis", <FaUserFriends/>]]
     return(
         <div className='navbar basis-1/5 h-screen divide-y-2 divide-slate-200 relative'>
