@@ -28,7 +28,7 @@ function NavBar(props) {
                             {elmt[0]}
                         </p>
                     </div>
-                ))}   
+                ))}
             </div>
             
             <div className='profile-section absolute inset-x-0 bottom-0 pl-10'>
