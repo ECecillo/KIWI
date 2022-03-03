@@ -1,7 +1,7 @@
-import logo from '../../public/kiwi_full_logo.png'
+import logo from '../../../public/kiwi_full_logo.png'
 
 //test profile picture
-import profilePicture from '../../public/test-img/doge.jpg'
+import profilePicture from '../../../public/test-img/doge.jpg'
 
 // react-icons components
 import {MdHomeFilled, MdFavorite} from 'react-icons/md'
