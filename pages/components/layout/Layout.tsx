@@ -9,6 +9,7 @@ type Props = {
 const Layout: React.FC<Props> = (props) => (
     <div className='flex flex-row'>
         <Header />
+        {/* Va caser les composants que l'on lui mettra */}
         {props.children}
         {/* Si on a besoin <Footer /> */}
     </div>

@@ -1,9 +1,14 @@
 import React from 'react'
-import { signIn, signOut, useSession } from "next-auth/react";
+import Layout from './components/layout/Layout';
+import Content from './components/content/Content';
+import RightSection from './components/rightSection/RightSection';
 
 const Home = () => {
-    return(
-        
+    return (
+        <Layout>
+            <Content />
+            <RightSection />
+        </Layout>
     )
 }
 export default Home;
