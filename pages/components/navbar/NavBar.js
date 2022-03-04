@@ -15,10 +15,11 @@ function NavBar(props) {
     return(
         <div className='navbar basis-1/5 h-screen divide-y-2 divide-slate-200 relative'>
             <div className='menu'>
+                {/* Logo */}
                 <div className='logo mb-20'>
                     <img src={logo.src} className="App-logo" alt="logo" />
                 </div>
-
+                {/* Links */}
                 {elmtList.map((elmt, index) => (
                     <div className='element flex flex-row items-center h-12 my-1 ml-10 rounded-xl text-lg text-neutral-500 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white pl-5' key={`${elmt}-${index}`}>
                         <span className='text-2xl mr-4'>
@@ -30,7 +31,7 @@ function NavBar(props) {
                     </div>
                 ))}
             </div>
-            
+            {/* User Part */}
             <div className='profile-section absolute inset-x-0 bottom-0 pl-10'>
                 <button className='flex flex-row items-center pl-4 mb-8 mt-6 text-neutral-500 fill-neutral-500 hover:fill-white hover:text-white hover:bg-black rounded-lg w-full'>
                     <img className='rounded-full aspect-square h-14 mr-4' src={profilePicture.src} alt='profile'/>
