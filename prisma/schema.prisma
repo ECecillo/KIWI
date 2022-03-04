@@ -12,16 +12,18 @@ datasource db {
 }
 
 model User {
-  user_id          String     @id @default(cuid())
-  user_name        String     @unique
-  user_email       String?    @unique
-  user_image       String?
-  user_description String?
-  playlists        Playlist[] // Défini le contenu comme une liste de Post. ([])
+  id            String     @id @default(cuid())
+  name          String?
+  email         String?    @unique
+  emailVerified DateTime?  @map("email_verified")
+  image         String?
+  playlists     Playlist[] // Défini le contenu comme une liste de Post. ([])
 
-  // Next Auth
+
   accounts Account[]
   sessions Session[]
+
+  @@map("users")
 }
 
 model Playlist {
@@ -31,7 +33,7 @@ model Playlist {
   playlist_visibility Boolean // Si on veut mettre la playlist en mode publique ou privé. (true: publique, false : privé)
 
 
-  owner   User?   @relation(fields: [ownerId], references: [user_id])
+  owner   User?   @relation(fields: [ownerId], references: [id])
   ownerId String?
 
   // Une playlist peut avoir plusieurs musiques.
@@ -49,9 +51,9 @@ model Song {
   song_year   Int?
 
   // Une musique peut avoir plusieurs Genre et un Genre peut avoir plusieurs musiques.
-  song_genres Genre? @relation(fields: [song_genreId], references: [genre_id])
-  song_genreId   String?
-  
+  song_genres  Genre?  @relation(fields: [song_genreId], references: [genre_id])
+  song_genreId String?
+
 
   // Une Musique est rattaché à un artiste (même une musique en colab reste à un artiste)
   song_artist   Artist @relation(fields: [song_artistId], references: [artist_id])
@@ -129,7 +131,7 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-  user               User    @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -140,7 +142,7 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Permet de stocker les tokens valides donnée par les providers lors de la connexion.
