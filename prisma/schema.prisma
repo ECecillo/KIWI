@@ -133,7 +133,10 @@ model Account {
   oauth_token        String?
   user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+
+
   @@unique([provider, providerAccountId])
+  @@index([userId], name: "userId")
 }
 
 // Va nous permettre de gérer la session active de l'user.
