@@ -17,7 +17,6 @@ export default Home;
 export async function getServerSideProps(context: GetSessionParams) {
     // On va faire du pré-rendue sur le serveur pour récup l'access token et ensuite effectuer les requêtes à spotify.
     const session = await getSession(context); 
-  
     return {
       props: {
         session,

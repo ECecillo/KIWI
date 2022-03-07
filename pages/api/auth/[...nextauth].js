@@ -45,28 +45,53 @@ export default NextAuth({
     })
   ],
   adapter: PrismaAdapter(prisma),
-  secret: process.env.SECRET, 
+  secret: process.env.SECRET,
   pages: {
     // Spécifie une page de login spéciale lorsque l'on utilisera le /api/auth/signIn .
     signIn: '/login',
   },
- /* 
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
-    async jwt({ token, user, account }) {
-      // Initial sign in
-      // Pas besoin.
+    // https://next-auth.js.org/tutorials/refresh-token-rotation
+    async jwt({ token, account, user }) {
+      // Si on s'est bien connecté on devrait avoir une variable user, account
+      // si c'est la première fois que l'on se connecte alors :
+      // On retourne le token suivant.
       if (account && user) {
+        // Ce que prisma remplis automatiquement lorsque l'on se connecte.
         return {
+          // Retourne le Token JWT que Spotify nous donne.
+          ...token, 
           accessToken: account.access_token,
-          accessTokenExpires: Date.now() + account.expires_in * 1000,
           refreshToken: account.refresh_token,
+          // On convertit le temps que Spotify nous donne (en ms) en heure.
+          accessTokenExpires: account.expires_at * 1000, 
+          // Permettra de savoir quand on enverra une nouvelle requête à spotify pour avoir un nouveau access token voir un refresh token.
           user,
-        }
+        };
       }
-      // Return previous token if the access token has not expired yet
+
+      // C'est là que l'on regarde si on aura besoin de renvoyer une nouvelle requête.
+      // Ici le token est encore valide donc on le retourne.
       if (Date.now() < token.accessTokenExpires) {
-        return token
+        console.log('EXISTING ACCESS TOKEN IS VALID');
+        return token;
       }
-    }
-  }, */
+      // Si le token d'accès a expiré après 1 h.
+      console.log('ACCESS TOKEN HAS EXPIRED, REFRESHING...');
+      // fonction qui va rafraichir le token.
+      return await refreshAccessToken(token);
+    },
+    async session({ session, token }) {
+      // On donne les infos côté client qui les stockera dans des cookiees HttpOnly.
+      session.user.username = token.username;
+      // L'user aura également l'accessToken et le refreshToken sur sa session (comme on utilise le système de rotation de Token qui se renouvelle toutes les heures on aura un nouveau refreshToken à chaque fois donc pas de faille de sécurité).
+      session.user.accessToken = token.accessToken;
+      session.user.refreshToken = token.refreshToken;
+
+      return session;
+    },
+  },
 })
