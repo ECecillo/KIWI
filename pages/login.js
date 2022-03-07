@@ -22,7 +22,7 @@ function Login({ providers }) { // On destructure ce que l'on a retourné en des
                 ))}
                 <div className="flex flex-row items-center space-x-2 text-black p-2 rounded-full">
                     <button onClick={() => alert("This functionnality is not available for now.")}>
-                        Continue with
+                        or use the app with
                     </button>
                     <ImYoutube2 className="w-[4rem] h-10" />
                 </div>
