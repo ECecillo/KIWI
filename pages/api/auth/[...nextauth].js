@@ -49,7 +49,8 @@ export default NextAuth({
   providers: [
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID,
-      clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      authorization: LOGIN_URL, // LOGIN_URL : Spécifie toutes les permissions dont on aura besoin et les mets dans un URL.
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
