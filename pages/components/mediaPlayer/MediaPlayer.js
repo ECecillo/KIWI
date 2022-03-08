@@ -12,7 +12,7 @@ import { MdPlaylistAdd } from 'react-icons/md'
 
 function MediaPlayer() {
     return (
-        <div class=" relative shadow rounded ">
+        <div class="absolute w-4/6 Mediaplayer bottom-2 drop-shadow-2xl rounded p-8 ">
             <div class=" rounded-t-xl flex  items-center bg-[#9ca3af]">
                 <div class="  flex-auto flex items-center justify-evenly basis-1/4">
 
