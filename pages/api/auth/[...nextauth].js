@@ -5,14 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
 import prisma from '../../../lib/prisma';
 import spotifyApi, { LOGIN_URL } from "../../../lib/spotify";
-
-const GOOGLE_AUTHORIZATION_URL =
-  "https://accounts.google.com/o/oauth2/v2/auth?" +
-  new URLSearchParams({
-    prompt: "consent",
-    access_type: "offline",
-    response_type: "code",
-  })
+import { GOOGLE_AUTHORIZATION_URL } from '../../../lib/google';
 
 // https://next-auth.js.org/tutorials/refresh-token-rotation
 async function refreshAccessToken(token) {
