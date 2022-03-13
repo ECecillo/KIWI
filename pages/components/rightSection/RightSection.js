@@ -20,11 +20,9 @@ const tagslist = [{tags:"Chill Hits"},
 
 function RightSection(){
     return(
-        <div className="static rightSection basis-1/6 h-screen relative from-blue-600 via-teal-500 to-purple-500 bg-gradient-to-t  ">
-
-            
-                <p className=' md:font-serif text-xl font-semibold text-center pt-12 pb-8'>#Tags</p>
-                <div className='flex'>
+        <div className="rightSection basis-3/12 h-screen relative border-2">
+            <p className=' md:font-serif text-xl font-semibold text-center pt-12 pb-8'>#Tags</p>
+            <div className='flex'>
                 <Tags tagslist={tagslist}/>
             </div>
             
@@ -40,11 +38,7 @@ function RightSection(){
                         <GrAddCircle/>
                     </button>
                 </div>
-                
-
             </div>
-
-
         </div>
     )
 }
