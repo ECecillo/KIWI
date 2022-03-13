@@ -1,15 +1,12 @@
 import React from 'react'
 import Layout from './components/layout/Layout';
-import Content from './components/content/Content';
-import RightSection from './components/rightSection/RightSection';
+import FullContent from './components/fullContent/fullContent';
 
 const Home = () => {
     return (
-        <Layout>
-            <Content />
-            <RightSection />
+        <Layout>    
+            <FullContent/>  
         </Layout>
     )
 }
 export default Home;
-
