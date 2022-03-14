@@ -3,7 +3,7 @@ import Rightsection from './../rightSection/RightSection';
 
 function FullContent(){
     return(
-        <div className='flex flex-row basis-4/5 bg-gradient-to-br from-pink-200 to-cyan-100'>
+        <div className='flex flex-row basis-5/6 bg-gradient-to-br from-pink-200 to-cyan-100'>
             <Content/>
             <Rightsection/>
         </div>
@@ -11,3 +11,5 @@ function FullContent(){
 }
 
 export default FullContent;
+
+//bg-gradient-to-br from-pink-200 to-cyan-100
