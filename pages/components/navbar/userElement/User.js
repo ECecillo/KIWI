@@ -27,7 +27,7 @@ export default function User() {
     };
     // Récupère les infos de useSession() et les destruct dans un objet contenant session et status.
     const { data: session, status } = useSession();
-
+    
     /* 
       session : 
         user?: {

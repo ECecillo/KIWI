@@ -1,6 +1,7 @@
 import SearchBar from '../searchbar/SearchBar';
 import MusicInfos from "../musicinfo/MusicInfos";
 import MediaPlayer from "../mediaPlayer/MediaPlayer";
+import { useSession } from 'next-auth/react';
 
 
 //test affichage en attente back-end
@@ -18,9 +19,8 @@ const playlist = [{id:"01", title:"Heat Waves", artist:"Glass Animals", duration
                   {id:"11", title:"Woman", artist:"Doja Cat", duration:"2:53", album:"Planet Her"},
                   {id:"12", title:"Jefe", artist:"Ninho", duration:"2:58", album:"Jefe"}];
 
-
-
 function Content(){
+    const { data: session, status } = useSession();
     return(
         <div className="content relative basis-10/12 border-2 bg-transparent m-6">
             <SearchBar/>
@@ -35,7 +35,6 @@ function Content(){
             </div>
 
             <MusicInfos playlist={playlist} />
- 
             <MediaPlayer />
         </div>
     )
