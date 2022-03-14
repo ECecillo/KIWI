@@ -22,7 +22,7 @@ const playlist = [{id:"01", title:"Heat Waves", artist:"Glass Animals", duration
 
 function Content(){
     return(
-        <div className="static content basis-9/12 border-2 bg-transparent m-6">
+        <div className="content relative basis-10/12 border-2 bg-transparent m-6">
             <SearchBar/>
             <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Ma super playlist</p>
 
