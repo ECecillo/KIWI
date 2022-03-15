@@ -1,6 +1,7 @@
 
 function MusicInfos(props){
     const songs = props.playlist;
+    //console.log(typeof(songs));
     return(
         <div className="scrollbar-hide overflow-y-auto overflow-x-hidden h-3/5">
             {songs.map((elmt, index) => (

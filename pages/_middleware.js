@@ -1,22 +1,29 @@
-import { getToken } from "next-auth/jwt"; // Va chercher le contenu du JWT.
 import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 
 
 export async function middleware(req) {
-    const token = await getToken({ req, secret: process.env.SECRET });
-
     // Pour avoir le token il faut lui passer la clé que l'on utilise pour crypter les données.
     const { pathname } = req.nextUrl;
-    const session  = await getSession();
 
-    // Si le token exist on autorise l'utilisateur à passer.
-    if (pathname.includes('/api/auth') || token || session?.user.status) // Si on veut se login ou on est déjà connecté.
+
+    // Lorsqu'une session est active, ce cookie doit être initialisé.
+    // Si ce n'est pas le cas (undefined), l'user ne s'est pas connecté => On le redirige.
+    // Sinon, on peut le laisser aller sur la page principale.
+    const session = req.cookies["next-auth.session-token"];
+    if(session)
+        console.log("Middleware Session : ",session);
+    else
+        console.log("Pas init");
+    
+    // Si on a bien été redirigé lors de la connexion ou que 1 des index contient les tokens utilisateur alors on redirige l'utilisateur vers la page Home. 
+    if (pathname.includes('/api/auth') || session)
     {
         return NextResponse.next(); // Fais en sorte qu'il puisse aller vers la page principale.
     }
 
-    if ((!token && pathname !== "/login") || session?.user.status === null) {
+    // Si on ne s'est jamais co spotify et google seront forcément null et si la path est différent de login (essaie d'accéder à Home sans s'être connecté) on le redirige.
+    if (!session && (pathname !== "/login")) {
         // Redirige l'utilisateur vers la page de connexion si il ne s'est jamais connecté.
         const url = req.nextUrl.clone();
         url.pathname = "/login";

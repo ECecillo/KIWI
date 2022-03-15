@@ -5,14 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
 import prisma from '../../../lib/prisma';
 import spotifyApi, { LOGIN_URL } from "../../../lib/spotify";
-
-const GOOGLE_AUTHORIZATION_URL =
-  "https://accounts.google.com/o/oauth2/v2/auth?" +
-  new URLSearchParams({
-    prompt: "consent",
-    access_type: "offline",
-    response_type: "code",
-  })
+import { GOOGLE_AUTHORIZATION_URL } from '../../../lib/google';
 
 // https://next-auth.js.org/tutorials/refresh-token-rotation
 async function refreshAccessToken(token) {
@@ -49,7 +42,8 @@ export default NextAuth({
   providers: [
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID,
-      clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      authorization: LOGIN_URL, // LOGIN_URL : Spécifie toutes les permissions dont on aura besoin et les mets dans un URL.
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -64,48 +58,57 @@ export default NextAuth({
     signIn: '/login',
   },
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
   callbacks: {
-    // https://next-auth.js.org/tutorials/refresh-token-rotation
-    async jwt({ token, account, user }) {
-      // Si on s'est bien connecté on devrait avoir une variable user, account
-      // si c'est la première fois que l'on se connecte alors :
-      // On retourne le token suivant.
-      if (account && user) {
-        // Ce que prisma remplis automatiquement lorsque l'on se connecte.
-        return {
-          // Retourne le Token JWT.
-          ...token,
-          accessToken: account.access_token,
-          refreshToken: account.refresh_token,
-          // On convertit le temps que Spotify nous donne (en ms) en heure.
-          accessTokenExpires: account.expires_at * 1000,
-          // Permettra de savoir quand on enverra une nouvelle requête à spotify pour avoir un nouveau access token voir un refresh token.
-          username: account.providerAccoundId,
-          status: "logged",
-        };
-      }
+    /* async signIn({ user, account, profile, email, credentials }) {
+      console.log("callbacks signIn user : ", user);
+      console.log("callbacks signIn account : ", account);
+      console.log("callbacks signIn profile : ", profile);
+      console.log("callbacks signIn email : ", email);
+      console.log("callbacks signIn credentials : ", credentials);
 
-      // C'est là que l'on regarde si on aura besoin de renvoyer une nouvelle requête.
-      // Ici le token est encore valide donc on le retourne.
-      if (Date.now() < token.accessTokenExpires) {
-        console.log('EXISTING ACCESS TOKEN IS VALID');
-        return token;
-      }
-      // Si le token d'accès a expiré après 1 h.
-      console.log('ACCESS TOKEN HAS EXPIRED, REFRESHING...');
-      // fonction qui va rafraichir le token.
-      return await refreshAccessToken(token);
-    },
-    async session({ session, token }) {
+    }, */
+    // https://next-auth.js.org/tutorials/refresh-token-rotation
+    async session({ session, user }) {
       // On donne les infos côté client qui les stockera dans des cookiees HttpOnly.
-      session.user.username = token.username;
+      /* session.user.username = token.username;
       // L'user aura également l'accessToken et le refreshToken sur sa session (comme on utilise le système de rotation de Token qui se renouvelle toutes les heures on aura un nouveau refreshToken à chaque fois donc pas de faille de sécurité).
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;
-      session.user.status = token.status;
+       */
 
+      /* On va chercher les Tokens utilisateur qui sont dans la bdd. */
+      
+      const sessionToken = await prisma.user.findUnique({
+        where: {
+          id: user.id,
+        },
+        include: {
+          accounts: true,
+        },
+      })
+      let { [0]: spotify_tokens, [1]: google_tokens } = sessionToken.accounts;
+
+      spotify_tokens
+        ? // Si l'utilisateur se connecte avec son compte Spotify, on définit l'access et le refresh token dans la session.
+        session.spotify = {
+          accessToken: spotify_tokens.access_token,
+          refreshToken: spotify_tokens.refresh_token,
+        }
+        : // Il ne s'est pas co avec un compte spotify ou ne s'est jamais co.
+        session.spotify = null;
+
+      google_tokens
+        ? // On s'est connecté
+        session.google = {
+          accessToken: google_tokens.access_token,
+          refreshToken: google_tokens.refresh_token,
+        }
+        : // Il ne s'est pas co avec son compte Google.
+        session.google = null;
+
+      //console.log("NextAuth Session : ", session);
       return session;
     },
   },
