@@ -5,3 +5,12 @@
 .music-infos{
     grid-template-columns: 5% 30% 30% 10% 30%;
 }
+
+.icon-nav{
+    z-index: 3;
+}
+
+.icon-nav:hover{
+    color: white;
+    z-index: 3;
+}

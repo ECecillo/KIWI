@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import Link from 'next/link';
+import { IconContext } from 'react-icons';
 import profilePicture from '../../../../public/test-img/doge.jpg'
 import { GrFormNext } from 'react-icons/gr'
 import { useRouter } from 'next/router';
@@ -59,11 +60,14 @@ export default function User() {
             <div className='profile-section absolute inset-x-0 bottom-0 pl-10' >
                 <button className='flex flex-row items-center pl-4 mb-8 mt-6 text-neutral-500 fill-neutral-500 hover:fill-white hover:text-white hover:bg-black rounded-lg w-full'>
                     {/* Ici pour src on verra pour récupérer l'image de l'utilisateur via la bdd. */}
-                    <Image className='rounded-full aspect-square h-14 mr-8' src={image_profile} height="100%" width="100%" alt='Imge profile' />
+                    <img className='rounded-full aspect-square h-14 w-14 mr-8' src={image_profile} height="100%" width="100%" alt='Image profil' />
                     <p className='font-sans text-lg mr-8'>{session.user.name}</p>
-                    <span className='text-2xl'>
-                        <GrFormNext />
-                    </span>
+                    <IconContext.Provider value={{ color: "blue", className: "global-class-name" }}>
+                        <div>
+                            <GrFormNext color='red' className='h-8 w-8'/>
+                        </div>
+                    </IconContext.Provider>
+                    
                 </button>
                 <Link href="/api/auth/signout">
                     <a data-active={isActive('/signup')}>Log Out</a>
