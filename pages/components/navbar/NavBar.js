@@ -10,12 +10,12 @@ import { FaUserFriends } from 'react-icons/fa'
 
 
 function NavBar() {
-    const elmtList = [
-        ["Accueil", <MdHomeFilled />],
-        ["Tendances", <AiOutlineLineChart />],
-        ["Favoris", <MdFavorite />],
-        ["Playlists", <IoGrid />],
-        ["Amis", <FaUserFriends />]
+
+    const elmtList = [{name:"Accueil", icon:<MdHomeFilled/>, link:"/"},
+                      {name:"Tendances", icon:<AiOutlineLineChart/>, link:"/trends"},
+                      {name:"Favoris", icon:<MdFavorite/>, link:"/favorites"},
+                      {name:"Playlists", icon:<IoGrid/>, link:"playlists"},
+                      {name:"Amis", icon:<FaUserFriends/>, link:"/friends"},
     ];
 
     return (
@@ -27,14 +27,16 @@ function NavBar() {
                 </div>
                 {/* Links */}
                 {elmtList.map((elmt, index) => (
-                    <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg text-neutral-500 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5' key={`${elmt}-${index}`}>
-                        <span className='text-2xl mr-4'>
-                            {elmt[1]}
-                        </span>
-                        <p className='font-sans'>
-                            {elmt[0]}
-                        </p>
-                    </div>
+                    <a href={elmt.link}>
+                        <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg text-neutral-500 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5' key={`${elmt}-${index}`}>
+                            <span className='text-2xl mr-4'>
+                                {elmt.icon}
+                            </span>
+                            <p className='font-sans'>
+                                {elmt.name}
+                            </p>
+                        </div>
+                    </a>
                 ))}
             </div>
             {/* User */}
