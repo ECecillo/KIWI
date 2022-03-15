@@ -18,7 +18,6 @@ function NavBar() {
         ["Amis", <FaUserFriends />]
     ];
 
-
     return (
         <div className='navbar flex flex-col basis-1/6 h-screen divide-y-2 divide-slate-200 relative '>
             <div className='menu'>
