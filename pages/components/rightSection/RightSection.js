@@ -12,7 +12,7 @@ const tagslist = [{tag:"❄️ Chill Hits"},
 
 function RightSection(){
     return(
-        <div className="rightSection basis-2/12 h-screen relative mr-6 py-6 border-2">
+        <div className="rightSection basis-2/12 h-screen relative mr-6 py-6 hidden lg:block">
             <p className='font-sans text-2xl font-semibold mb-5'>Shortcuts</p>
             <Tags tagslist={tagslist}/>
 

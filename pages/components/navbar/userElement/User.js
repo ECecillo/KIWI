@@ -57,7 +57,7 @@ export default function User() {
         // Si on est connecté on affiche le nom de l'utilisateur (probablement créer une page pour gérer son compte pour la deconnexion, image ect ....)
         let image_profile = session.user.image;
         composant_User = (
-            <div className='profile-section absolute inset-x-0 bottom-0 pl-10' >
+            <div className='profile-section absolute bottom-0 w-full' >
                 <button className='flex flex-row items-center pl-4 mb-8 mt-6 text-neutral-500 fill-neutral-500 hover:fill-white hover:text-white hover:bg-black rounded-lg w-full'>
                     {/* Ici pour src on verra pour récupérer l'image de l'utilisateur via la bdd. */}
                     <img className='rounded-full aspect-square h-14 w-14 mr-8' src={image_profile} height="100%" width="100%" alt='Image profil' />

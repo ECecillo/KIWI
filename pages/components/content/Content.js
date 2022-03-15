@@ -22,16 +22,16 @@ const playlist = [{id:"01", title:"Heat Waves", artist:"Glass Animals", duration
 function Content(){
     const { data: session, status } = useSession();
     return(
-        <div className="content relative basis-10/12 border-2 bg-transparent m-6">
+        <div className="content relative basis-full lg:basis-10/12 m-6">
             <SearchBar/>
             <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Ma super playlist</p>
 
-            <div className='music-infos  grid grid-cols-5 font-sans select-none uppercase text-black-500 text-md px-5 pb-5 ' >
+            <div className='music-infos grid grid-cols-5 font-sans select-none uppercase text-black-500 text-md px-5 pb-5 ' >
                 <p className=''>#</p>
                 <p>Titre</p>
                 <p>Artiste</p>
                 <p>Durée</p>
-                <p>Album</p>
+                <p className='hidden md:block'>Album</p>
             </div>
 
             <MusicInfos playlist={playlist} />

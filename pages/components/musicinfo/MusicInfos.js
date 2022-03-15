@@ -9,7 +9,7 @@ function MusicInfos(props){
                 <p>{elmt.title}</p>
                 <p>{elmt.artist}</p>
                 <p>{elmt.duration}</p>
-                <p>{elmt.album}</p>
+                <p className="hidden md:block">{elmt.album}</p>
             </div>
             ))}
         </div>
