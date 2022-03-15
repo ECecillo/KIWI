@@ -1,5 +1,6 @@
 function Tags(props){
     const tags = props.tagslist;
+    //console.log(typeof(tags));
     return(
         <div id="tags" className="">
             {tags.map((elmt, index) => (

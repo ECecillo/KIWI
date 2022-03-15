@@ -24,7 +24,7 @@ function Content(){
     return(
         <div className="content relative basis-full lg:basis-10/12 m-6">
             <SearchBar/>
-            <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Ma super playlist</p>
+            <p className='font-sans md:font-serif text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Ma super playlist</p>
 
             <div className='music-infos grid grid-cols-5 font-sans select-none uppercase text-black-500 text-md px-5 pb-5 ' >
                 <p className=''>#</p>
@@ -35,6 +35,7 @@ function Content(){
             </div>
 
             <MusicInfos playlist={playlist} />
+ 
             <MediaPlayer />
         </div>
     )
