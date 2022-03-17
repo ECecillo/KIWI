@@ -27,7 +27,6 @@ export default function User() {
     };
     // Récupère les infos de useSession() et les destruct dans un objet contenant session et status.
     const { data: session, status } = useSession();
-    
     /* 
       session : 
         user?: {
@@ -59,7 +58,7 @@ export default function User() {
             <div className='profile-section absolute inset-x-0 bottom-0 pl-10' >
                 <button className='flex flex-row items-center pl-4 mb-8 mt-6 text-neutral-500 fill-neutral-500 hover:fill-white hover:text-white hover:bg-black rounded-lg w-full'>
                     {/* Ici pour src on verra pour récupérer l'image de l'utilisateur via la bdd. */}
-                    <Image className='rounded-full aspect-square h-14 mr-8' src={image_profile} height="100%" width="100%" alt='Imge profile' />
+                    <img className='rounded-full aspect-square h-14 mr-8' src={image_profile}  alt='Imge profile' />
                     <p className='font-sans text-lg mr-8'>{session.user.name}</p>
                     <span className='text-2xl'>
                         <GrFormNext />
