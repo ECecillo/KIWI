@@ -11,10 +11,6 @@ export async function middleware(req) {
     // Si ce n'est pas le cas (undefined), l'user ne s'est pas connecté => On le redirige.
     // Sinon, on peut le laisser aller sur la page principale.
     const session = req.cookies["next-auth.session-token"];
-    if(session)
-        console.log("Middleware Session : ",session);
-    else
-        console.log("Pas init");
     
     // Si on a bien été redirigé lors de la connexion ou que 1 des index contient les tokens utilisateur alors on redirige l'utilisateur vers la page Home. 
     if (pathname.includes('/api/auth') || session)
