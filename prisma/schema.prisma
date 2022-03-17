@@ -97,21 +97,22 @@ model Album {
 // https://next-auth.js.org/adapters/prisma
 
 // ===== Account ======
-// Fourni les informations à OAuth associé aux Users. (contient surtout les infos pour un TokenSet)
 
-// id  :  Primary key
-// type :
-// provider :
-// providerAccountId :
-// refreshToken :
-// accessToken :
-// expiresAt : Temps en seconde pour l'expiration du token.
-// tokenType :
-// scope :
-// idToken :
-// sessionState :
-// oauthTokenSecret :
-// oauthToken :
+// Contient les infos que l'on envoie aux serveurs API que l'on utilise.
+
+// @ id  :  Primary key
+// @ type : Type de connexion utilisé (oauth de base)
+// @ provider : le nom du fournisseur d'accès (spotify, google ....)
+// @ providerAccountId : Id qui est dans la page user de spotify.
+// @ refreshToken : Token qui permet d'obtenir un nouvelle access_token quand ce dernier est expiré.
+// @ accessToken : Token qui permettra de faire des requêtes à l'API.
+// @ expiresAt : Temps en seconde pour l'expiration du token.
+// @ tokenType : Bearer, type du token que l'on envoie à l'API Spotify.
+// @ scope : Authorization donné par l'utilisateur (défini ce que l'on peut faire avec le token).
+// @ idToken : null.
+// @ sessionState : null.
+// @ oauthTokenSecret : null
+// @ oauthToken : null
 
 // user   User @relation(fields: [userId], references: [id], onDelete: Cascade) : 1 utilisateur peut avoir plusieurs compte mais 1 compte a 1 seul User.
 // userId Int
