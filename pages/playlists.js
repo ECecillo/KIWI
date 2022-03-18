@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import NavBar from './components/navbar/NavBar';
+import FullContent from './components/fullContent/fullContent';
+import RightSection from './components/rightSection/RightSection';
+import UserPlaylists from './components/userPlaylists/UserPlaylists';
 
 function playlists() {
   return (
-    <p>Hello World!</p>
+    <div className='flex flex-row'>
+        <NavBar/>
+        <FullContent compo={<React.Fragment><UserPlaylists/><RightSection/></React.Fragment>}/>
+    </div>
   )
 }
 
