@@ -101,25 +101,10 @@ export default NextAuth({
     strategy: "database",
   },
   callbacks: {
-    /* async signIn({ user, account, profile, email, credentials }) {
-      console.log("callbacks signIn user : ", user);
-      console.log("callbacks signIn account : ", account);
-      console.log("callbacks signIn profile : ", profile);
-      console.log("callbacks signIn email : ", email);
-      console.log("callbacks signIn credentials : ", credentials);
-
-    }, */
     // https://next-auth.js.org/tutorials/refresh-token-rotation
     async session({ session, user }) {
-      // On donne les infos côté client qui les stockera dans des cookiees HttpOnly.
-      /* session.user.username = token.username;
-      // L'user aura également l'accessToken et le refreshToken sur sa session (comme on utilise le système de rotation de Token qui se renouvelle toutes les heures on aura un nouveau refreshToken à chaque fois donc pas de faille de sécurité).
-      session.user.accessToken = token.accessToken;
-      session.user.refreshToken = token.refreshToken;
-       */
 
       /* On va chercher les Tokens utilisateur qui sont dans la bdd. */
-
       const sessionToken = await prisma.user.findUnique({
         where: {
           id: user.id,
@@ -129,16 +114,15 @@ export default NextAuth({
         },
       })
 
+      // Destruction de l'objet accounts pour récupérer l'objet spotify et google (on check aussi si ils sont bien définies).
       const { [0]: spotify_tokens, [1]: google_tokens } = sessionToken.accounts;
 
       if (spotify_tokens) {
         // Si la variable est bien défini alors on définira l'access token de spotify.
         session.spotify = await checkTokenValidity("Spotify", spotify_tokens, spotify_tokens.expires_at);
-
       }
       else
         session.spotify = null;
-
 
       if (google_tokens) {
         // Si la variable est bien défini alors on définira l'access token de google.
