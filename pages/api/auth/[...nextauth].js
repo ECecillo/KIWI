@@ -131,7 +131,7 @@ export default NextAuth({
       else
         session.google = null;
 
-
+      console.log("Session spotify : ",session)
       return session;
     },
   },
