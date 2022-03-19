@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.music-infos{
-    grid-template-columns: 5% 30% 30% 10% 30%;
+@media (min-width: 768px) {
+    .music-infos{
+        grid-template-columns: 5% 30% 30% 10% 30%;
+    }
+}
+
+@media (max-width: 767px){
+    .music-infos{
+        grid-template-columns: 10% 40% 40% 10%;
+    }
+}
+
+.icon-nav{
+    z-index: 3;
+}
+
+.icon-nav:hover{
+    color: white;
+    z-index: 3;
 }
