@@ -1,40 +1,56 @@
 import SearchBar from '../searchbar/SearchBar';
-import MusicInfos from "../musicinfo/MusicInfos";
 import MediaPlayer from "../mediaPlayer/MediaPlayer";
 import { useSession } from 'next-auth/react';
-
-//test affichage en attente back-end
-//id, title, artist, duration, album
-const playlist = [{id:"01", title:"Heat Waves", artist:"Glass Animals", duration:"3:59", album:"Dreamlands"},
-                  {id:"02", title:"MAMIII", artist:"Becky G", duration:"3:46", album:"MAMIII"},
-                  {id:"03", title:"Cold Heart - PNAU Remix", artist:"Elton John, Dua Lipa", duration:"3:23", album:"The Lockdown Sessions"},
-                  {id:"04", title:"INDUSTRY BABY", artist:"Lil Nas X, Jack Harlow", duration:"3:32", album:"MONTERO"},
-                  {id:"05", title:"Esay On Me", artist:"Adele", duration:"3:45", album:"30"},
-                  {id:"06", title:"Woman", artist:"Doja Cat", duration:"2:53", album:"Planet Her"},
-                  {id:"07", title:"Jefe", artist:"Ninho", duration:"2:58", album:"Jefe"},
-                  {id:"08", title:"Cold Heart - PNAU Remix", artist:"Elton John, Dua Lipa", duration:"3:23", album:"The Lockdown Sessions"},
-                  {id:"09", title:"INDUSTRY BABY", artist:"Lil Nas X, Jack Harlow", duration:"3:32", album:"MONTERO"},
-                  {id:"10", title:"Esay On Me", artist:"Adele", duration:"3:45", album:"30"},
-                  {id:"11", title:"Woman", artist:"Doja Cat", duration:"2:53", album:"Planet Her"},
-                  {id:"12", title:"Jefe", artist:"Ninho", duration:"2:58", album:"Jefe"}];
+import React, { useEffect, useState } from 'react';
+import useSpotify from './../../../hooks/useSpotify';
+import DisplayGrid from './../displayGrid/DisplayGrid';
 
 function Content(){
     const { data: session, status } = useSession();
-    return(
-        <div className="content relative lg:basis-10/12 m-6">
-            <SearchBar/>
-            <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Ma super playlist</p>
+    const spotifyApi = useSpotify();
+    const [releases, setReleases] = useState([]);
+    useEffect(() => {
+        if(spotifyApi.getAccessToken()){
+            spotifyApi.getNewReleases({limit:6}).then((data) => {
+                setReleases(data.body.albums.items);
+            })
+        }
+    }, [session, spotifyApi]);
 
-            <div className='music-infos grid grid-cols-5 font-sans select-none uppercase text-black-500 text-md px-5 pb-5 ' >
-                <p>#</p>
-                <p>Titre</p>
-                <p>Artiste</p>
-                <p>Durée</p>
-                <p className='hidden md:block'>Album</p>
+    const [releasesFR, setReleasesFR] = useState([]);
+    useEffect(() => {
+        if(spotifyApi.getAccessToken()){
+            spotifyApi.getNewReleases({limit:6, country:'FR'}).then((data) => {
+                setReleasesFR(data.body.albums.items);
+            })
+        }
+    }, [session, spotifyApi]);
+
+    console.log(releasesFR);
+
+    return(
+        <div className="content relative mx-6 pt-6 md:h-screen lg:h-full basis-full lg:basis-10/12">
+            <SearchBar/>
+            <p className='font-sans text-3xl font-semibold mt-8 mb-4 pt-5 pl-10'>Nouveautés mondiales 🌍</p>
+            <div className='flex flex-row'>
+                {releases.map((elmt, index) => 
+                <div className="flex flex-col h-fit items-center rounded-2xl bg-white m-2 p-2 w-32" key={`${elmt}-${index}`}>
+                    <img src={elmt.images[0].url} className="rounded-2xl aspect-square"></img>
+                    <p className="w-full overflow-hidden truncate text-center">{elmt.name}</p>
+                </div>
+                )}
             </div>
 
-            <MusicInfos playlist={playlist} />
-            
+            <p className='font-sans text-3xl font-semibold mt-8 mb-4 pt-5 pl-10'>Nouveautés France 🇫🇷</p>
+            <div className='flex flex-row'>
+                {releasesFR.map((elmt, index) => 
+                <div className="flex flex-col h-fit items-center rounded-2xl bg-white m-2 p-2 w-32" key={`${elmt}-${index}`}>
+                    <img src={elmt.images[0].url} className="rounded-2xl aspect-square"></img>
+                    <p className="w-full overflow-hidden truncate text-center">{elmt.name}</p>
+                </div>
+                )}
+            </div>
+
             <MediaPlayer />
         </div>
     )
