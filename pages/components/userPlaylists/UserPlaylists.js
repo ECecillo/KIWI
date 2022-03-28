@@ -8,7 +8,7 @@ import DisplayGrid from '../displayGrid/DisplayGrid';
 function UserPlaylists() {
 
     const spotifyApi = useSpotify();
-    const {data: session, statu} = useSession();
+    const {data: session, status} = useSession();
     const [playlists, setPlaylists] = useState([]);
     useEffect(() => {
         if(spotifyApi.getAccessToken()){
@@ -19,7 +19,7 @@ function UserPlaylists() {
     }, [session, spotifyApi]);
 
     return (
-        <div className="content relative basis-10/12 m-6">
+        <div className="content relative mx-6 pt-6 md:h-screen lg:h-full basis-full lg:basis-10/12">
             <SearchBar/>
                 <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Mes playlists</p>
 
