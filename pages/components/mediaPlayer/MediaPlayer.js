@@ -11,7 +11,7 @@ import {MdZoomOutMap} from 'react-icons/md';
 
 function MediaPlayer() {
     return (
-        <div className='bg-white rounded-3xl absolute bottom-0 w-full px-6 py-4'>
+        <div className='bg-white rounded-3xl absolute bottom-6 w-full px-6 py-4'>
             <div className='flex flex-row w-full items-center mb-3'>
                 <span className='w-1/12'></span>
                 <span className='hidden md:flex w-3/12 justify-center'>
