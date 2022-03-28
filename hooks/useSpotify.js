@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import SpotifyWebApi from "spotify-web-api-node";
 
 const spotifyApi = new SpotifyWebApi({
-    clientID: process.env.NEXT_PUBLIC_CLIENT_ID,
-    clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+    clientID: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   });
 
 function useSpotify() {
@@ -15,7 +15,7 @@ function useSpotify() {
             if(session.error === "RefreshAccessTokenError") {
                 signIn();
             }
-            spotifyApi.setAccessToken(session.user.accessToken);
+            spotifyApi.setAccessToken(session.spotify.accessToken);
         }
     },[session]); // Se lance au lancement de l'app et lorsque session est bien défini.
 
