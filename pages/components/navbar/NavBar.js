@@ -19,7 +19,7 @@ function NavBar() {
     ];
 
     return (
-        <div className='navbar flex flex-col basis-1/6 h-screen divide-y-2 divide-slate-200 relative '>
+        <div className='navbar hidden md:flex flex-col basis-1/6 h-screen divide-y-2 divide-slate-200 relative '>
             <div className='menu'>
                 {/* Logo */}
                 <div className='logo mb-20 mt-5 ml-5 w-3/4'>

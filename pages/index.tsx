@@ -9,7 +9,7 @@ import { getSession, GetSessionParams } from 'next-auth/react';
 
 const Home = () => {
     return (
-        <Layout>    
+        <Layout> 
             <FullContent compo={<React.Fragment><Content/><RightSection/></React.Fragment>}/> 
         </Layout>
     )
