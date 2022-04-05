@@ -7,7 +7,7 @@ type Props = {
 
 // On définit le corp de la page (Header, content, Footer), ici on aura que la navbar dans le Header.
 const Layout: React.FC<Props> = (props) => (
-    <div className='flex flex-row'>
+    <div className='flex flex-row h-screen'>
         <Header />
         {/* Va caser les composants que l'on lui mettra */}
         {props.children}
