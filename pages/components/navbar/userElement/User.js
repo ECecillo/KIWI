@@ -28,6 +28,14 @@ export default function User() {
     };
     // Récupère les infos de useSession() et les destruct dans un objet contenant session et status.
     const { data: session, status } = useSession();
+    /* 
+      session :
+        user?: {
+          name?: string | null
+          email?: string | null
+          image?: string | null
+        }
+    */
 
 
     let composant_User = null;
