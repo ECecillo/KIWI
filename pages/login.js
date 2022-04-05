@@ -11,9 +11,9 @@ function Login({ providers }) { // On destructure ce que l'on a retourné en des
     const [userStatus, setUserStatus] = useRecoilState(userState);
     const {data: session} = useSession();
     const setSessionUserStatus = () => {
-        console.log(session)
+        console.log(session);
         session.user.status = "invited";
-    }
+    };
 
     return (
         <div className="flex flex-col items-center bg-gradient-to-tl from-[#FFDEE9] to-[#16a084d5] min-h-screen w-full justify-center">
@@ -21,10 +21,8 @@ function Login({ providers }) { // On destructure ce que l'on a retourné en des
             <img src={logo.src} className="App-logo pb-10" alt="logo" />
             {/* Cadre Boutons de connexion */}
             <div className="flex flex-col items-center bg-white bg-opacity-[0.325] p-5 rounded-xl space-y-3">
-
-                {/* Spotify */}
-
                 <img className="w-52 h-30 mb-7" src="https://cdn.worldvectorlogo.com/logos/spotify-1.svg" alt="Spotify logo" />
+                {/* Affiche les boutons pour chaque Provider dispos. */}
                 {Object.values(providers).map((provider) => ( // Récupère les éléments de l'object que l'on a déclaré pour next auth.
                     <div key={provider.name}>
                         <button className="bg-[#18D860] text-black p-3 rounded-full"
