@@ -47,16 +47,14 @@ function Content() {
     const { data: session, status } = useSession();
     const [playlists, setPlaylists] = useState([]);
 
-
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getUserPlaylists().then((data) => {
                 setPlaylists(data.body.items);
-            })
+            });
         }
-        console.log("Hello there")
+        console.log("Hello there");
     }, [session, spotifyApi]);
-
 
 
     return (
@@ -74,11 +72,11 @@ function Content() {
             {playlists.map((playlist) => (
                 <p key={playlist.id} className="cursor-pointer hover:text-white">{playlist.name}</p>
             ))}
-            {/* 
+            
             <MusicInfos playlist={playlist} />
             <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Tendance</p>
             <Tendance tendance={tendance} />
-            */}
+           
             <MediaPlayer />
         </div>
     )

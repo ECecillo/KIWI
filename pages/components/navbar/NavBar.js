@@ -38,7 +38,7 @@ function NavBar() {
                 ))}
             </div>
             {/* User */}
-            <User />
+            <User/>
         </div>
     )
 }
