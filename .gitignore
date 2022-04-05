@@ -37,3 +37,4 @@ yarn-error.log*
 .directory
 
 .idea/
+.vscode/launch.json
