@@ -29,7 +29,7 @@ function Content() {
     console.log(releasesFR);
 
     return(
-        <div className="content relative mx-6 pt-6 md:h-screen lg:h-full basis-full lg:basis-10/12">
+        <div className="content relative mx-6 pt-6 md:h-screen lg:h-full basis-full lg:basis-10/12 dark:text-dark-white">
             <SearchBar/>
             <p className='font-sans text-3xl font-semibold mt-8 mb-4 pt-5 pl-10'>Nouveautés mondiales 🌍</p>
             <div className='flex flex-row'>

@@ -5,7 +5,8 @@ function FullContent(props){
     const compo = props.compo;
     return(
         <div className="flex flex-col h-screen basis-full md:basis-5/6 "> 
-            <div className='flex flex-row basis-11/12 md:basis-5/6 bg-gradient-to-br from-pink-200 to-cyan-100'>
+            <div className='flex flex-row basis-11/12 md:basis-5/6 bg-gradient-to-br 
+            from-[#04043e] via-[#3e1339fd] to-[#2e0926e5]'>
                 {compo}
             </div>
             <NavBarMobile/>
