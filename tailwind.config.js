@@ -7,14 +7,14 @@ module.exports = {
   ], 
   theme: {
     extend: {
-      colors: {
+      colors: { 
         'dark-black': '#121315', //
         'dark-transparent-black': '#1e1f20b7',
         'dark-soft-black': '#292B2F', 
         'dark-light-gray': '#36393F',
-        'dark-gradient-right': '#FFFFFF',
-        'dark-gradient-middle' : '#784BA0',
-        'dark-gradient-left' : '#121315',
+        'dark-gradient-right': '#04043e',
+        'dark-gradient-middle' : '#3e13398f',
+        'dark-gradient-left' : '#58121d',
         'dark-white' : '#F1F0F4'
       },
     },
@@ -39,5 +39,3 @@ module.exports = {
     })
   ],
 }
-/* background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
- background-blend-mode: multiply,multiply; */
