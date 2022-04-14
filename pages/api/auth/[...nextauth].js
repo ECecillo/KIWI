@@ -6,16 +6,19 @@ import SpotifyProvider from "next-auth/providers/spotify";
 import prisma from '../../../lib/prisma';
 import { LOGIN_URL, refreshAccessTokenSpotify } from "../../../lib/spotify";
 import { GOOGLE_AUTHORIZATION_URL, refreshAccessTokenGoogle } from '../../../lib/google';
+import { assert } from 'console';
 
 
 /* 
-  @token : object qui 
+  @param token : Object qui contient les informations que la bdd nous a données.
+  @param provider: String qui indique quel provider on traite pour la lancer la bonne méthode de refresh.
 */
 async function setSessionProviderToken(token, provider) {
   let sessionToken;
   if (token) {
     // Si la variable est bien défini alors on définira l'access token de spotify.
     sessionToken = await checkTokenValidity(provider, token, token.expires_at);
+    sessionToken.provider_id = token.providerAccountId;
   }
   else {
     sessionToken = null;
@@ -23,6 +26,7 @@ async function setSessionProviderToken(token, provider) {
 
   return sessionToken;
 }
+
 
 async function checkTokenValidity(provider, token, expires_at) {
   try {
@@ -63,10 +67,14 @@ async function checkTokenValidity(provider, token, expires_at) {
 
     if (!new_token)
       console.debug('ERROR NEW_TOKEN');
-
-
+    
+    // Check si le token va éxcéder la valeur entière max que l'on peut mettre dans un type integer pour Postgresql (+2147483647).
+    let database_token_expires_at = new_token.accessTokenExpires;
+    if(new_token.expires_at > 2147483647){
+      database_token_expires_at = new_token.accessTokenExpires - constante_reduit_Big_Int;
+      assert(database_token_expires_at); // On met un message d'alerte dans la console si jamais la valeur est nég.
+    }
     // Le Int que l'on stockera dans la database.
-    const database_token_expires_at = new_token.accessTokenExpires - constante_reduit_Big_Int;
 
     // Comme on a récupéré un nouvelle access, refresh et une expiration date, on doit mettre à jour la bdd avec ces nouvelles données.
     const updateToken = await prisma.account.update({
@@ -77,7 +85,7 @@ async function checkTokenValidity(provider, token, expires_at) {
       data: { // On changera les colonnes suivantes.
         refresh_token: new_token.refreshToken,
         access_token: new_token.accessToken,
-        expires_at: { 
+        expires_at: {
           set: database_token_expires_at,
         }
       }
@@ -123,33 +131,38 @@ export default NextAuth({
   },
   callbacks: {
     async session({ session, user }) {
-      if (session.spotify && session.google) {
-        console.log("On a déjà récupérer les tokens pour les deux providers ", session);
-        // Si on a déjà une session d'ouverte et qu'on s'est co avec Google et Spotify alors on a pas besoin de faire un call à la database et on vérifie direct le token.
-        session.spotify = await setSessionProviderToken(session.spotify, "Spotify");
-        session.google = await setSessionProviderToken(session.google, "Google");
+      let spotify_tokens = {};
+      let google_tokens = {};
+      /* On va chercher les Tokens utilisateur qui sont dans la bdd. */
+      // Destruction de l'objet retourné pour récupérer l'objet spotify et google.
+      const response = await prisma.account.findMany({
+        where: {
+          userId: user.id,
+        },
+        select: {
+          id: true,
+          provider: true,
+          providerAccountId: true,
+          refresh_token: true,
+          access_token: true,
+          expires_at: true,
+        }
+      });
+      // Si le première élément du tableau correspond au token spotify alors on le stock dans la variable.
+      if (response[0].provider === "spotify") {
+        spotify_tokens = response[0];
+        google_tokens = response[1];
+      } // Sinon c'est google et on stock les éléments dans les bonnes variables.
+      else if (response[0].provider === "google") {
+        google_tokens = response[0];
+        spotify_tokens = response[1];
       }
-      else {
-        /* On va chercher les Tokens utilisateur qui sont dans la bdd. */
-        // Destruction de l'objet retourné pour récupérer l'objet spotify et google.
-        const { [0]: spotify_tokens, [1]: google_tokens } = await prisma.account.findMany({
-          where: {
-            userId: user.id,
-          },
-          select: {
-            id: true,
-            provider: true,
-            refresh_token: true,
-            access_token: true,
-            expires_at: true,
-          }
-        });
-        session.spotify = await setSessionProviderToken(spotify_tokens, "Spotify");
-        session.google = await setSessionProviderToken(google_tokens, "Google");
-      }
+      session.spotify = await setSessionProviderToken(spotify_tokens, "Spotify");
+      session.google = await setSessionProviderToken(google_tokens, "Google");
+
       session.user.userId = user.id;
-      //console.log("Session User : ", session);
       return session;
     },
   },
 });
+
