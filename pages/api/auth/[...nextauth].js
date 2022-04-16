@@ -31,22 +31,9 @@ async function setSessionProviderToken(token, provider) {
 async function checkTokenValidity(provider, token, expires_at) {
   try {
 
-    // On prend la constante : 1647500000000 qui permettra de réduire assez notre expiration pour pouvoir le stocker dans la database.
-    // On utilisera cette constante dans le cas où on sera amené à refraichir le token et à comprésser la valeur du temps d'expiration du prochaine token.
-    const constante_reduit_Big_Int = 1647500000000;
-
-    //console.log("Valeur de Expire at ", expires_at);
-    // Lorsque l'utilisateur s'authentifie pour la première fois, la valeur calculé est supérieur à 1.5 millions or ici si elle est inférieure c'est que l'on a déjà mis à jour le token et que l'on a stocké la valeur compréssée.
-    if (expires_at < 1647000000) {
-      expires_at += constante_reduit_Big_Int;
-    }
-    else {
-      expires_at *= 1000;
-    }
-
     // On vérifie si le token est encore valide.
-    if (Date.now() < expires_at) {
-      console.log('EXISTING ACCESS TOKEN of ' + provider + ' IS VALID');
+    if (Date.now() < expires_at * 1000) {
+      console.log(provider + ' EXISTING ACCESS TOKEN IS VALID.');
       return {
         access_token: token.access_token,
         expires_at: expires_at,
@@ -68,14 +55,6 @@ async function checkTokenValidity(provider, token, expires_at) {
     if (!new_token)
       console.debug('ERROR NEW_TOKEN');
     
-    // Check si le token va éxcéder la valeur entière max que l'on peut mettre dans un type integer pour Postgresql (+2147483647).
-    let database_token_expires_at = new_token.accessTokenExpires;
-    if(new_token.expires_at > 2147483647){
-      database_token_expires_at = new_token.accessTokenExpires - constante_reduit_Big_Int;
-      assert(database_token_expires_at); // On met un message d'alerte dans la console si jamais la valeur est nég.
-    }
-    // Le Int que l'on stockera dans la database.
-
     // Comme on a récupéré un nouvelle access, refresh et une expiration date, on doit mettre à jour la bdd avec ces nouvelles données.
     const updateToken = await prisma.account.update({
       where: {
@@ -86,7 +65,7 @@ async function checkTokenValidity(provider, token, expires_at) {
         refresh_token: new_token.refreshToken,
         access_token: new_token.accessToken,
         expires_at: {
-          set: database_token_expires_at,
+          set: new_token.accessTokenExpires,
         }
       }
     });
@@ -94,7 +73,7 @@ async function checkTokenValidity(provider, token, expires_at) {
 
     return {
       access_token: new_token.accessToken,
-      expires_at: database_token_expires_at,
+      expires_at: new_token.accessTokenExpiress,
     };
   }
   catch (error) {
