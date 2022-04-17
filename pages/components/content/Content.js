@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import useSpotify from './../../../hooks/useSpotify';
 import DisplayGrid from './../displayGrid/DisplayGrid';
+import Playback from './../playback/Playback';
 
 function Content() {
     const { data: session, status } = useSession();
@@ -25,6 +26,9 @@ function Content() {
             })
         }
     }, [session, spotifyApi]);
+
+    const accessToken = spotifyApi.getAccessToken();
+    const [playingTrack, setPlayingTrack] = useState();
 
     console.log(releasesFR);
 
@@ -50,7 +54,8 @@ function Content() {
                 </div>
                 )}
             </div>
-            <MediaPlayer />
+
+            <MediaPlayer token={accessToken} trackUri={playingTrack?.uri} />
         </div>
     )
 }
