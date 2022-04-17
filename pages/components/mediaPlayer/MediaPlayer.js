@@ -8,8 +8,10 @@ import {FiVolume1} from 'react-icons/fi';
 import {FiVolume2} from 'react-icons/fi';
 import {MdFavoriteBorder} from 'react-icons/md';
 import {MdZoomOutMap} from 'react-icons/md';
+import useSpotify from '../../../hooks/useSpotify';
 
 function MediaPlayer() {
+    const spotifyApi = useSpotify();
     return (
         <div className='bg-white rounded-3xl absolute bottom-6 w-full px-6 py-4'>
             <div className='flex flex-row w-full items-center mb-3'>
@@ -27,7 +29,7 @@ function MediaPlayer() {
                         <IoShuffleOutline className='h-6 w-6'/>
                     </button>
                     <button>
-                        <BsFillSkipBackwardFill className='h-6 w-6'/>
+                        <BsFillSkipBackwardFill className='h-6 w-6' onClick={spotifyApi.skipToPrevious()}/>
                     </button>
                     <button>
                         <MdPauseCircle className='h-12 w-12'/>
