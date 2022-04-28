@@ -14,6 +14,11 @@
     }
 }
 
+@font-face {
+    font-family: "Proxima Nova";
+    src: url("./fonts/ProximaNovaFont.otf");
+}
+
 .icon-nav{
     z-index: 3;
 }
@@ -21,4 +26,8 @@
 .icon-nav:hover{
     color: white;
     z-index: 3;
+}
+
+.logo-text{
+    font-family: "Proxima Nova";
 }

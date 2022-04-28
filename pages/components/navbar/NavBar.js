@@ -1,4 +1,4 @@
-import logo from '../../../public/kiwi_full_logo.png'
+import Logo from '../../../public/logo_kiwi.png';
 
 //test profile picture
 import User from "./userElement/User";
@@ -22,16 +22,27 @@ function NavBar({ session }) {
     //const session = useRecoilValue(sessionState);
 
     return (
-        <div className='navbar hidden md:flex flex-col basis-1/6 h-screen divide-y-2 divide-slate-200 dark:bg-dark-black relative '>
+        <div className='navbar hidden md:flex flex-col basis-1/6 h-screen divide-y-2 divide-slate-200 dark:bg-[#042119] relative'>
             <div className='menu'>
                 {/* Logo */}
-                <div className='logo mb-20 mt-5 ml-5 w-3/4'>
-                    <img src={logo.src} className="App-logo" alt="logo" />
+                <a href='/'>
+                <div className='logo mb-20 mt-5 ml-5 w-3/4 h-30 flex flex-row'>
+                    <span className='basis-1/2'>
+                        <img src={Logo.src} className="pb-2" alt="logo" />
+                    </span>
+                    <span className='basis-1/2 flex flex-col justify-end pl-3'>
+                        <span className='h-1/2'>
+                            <p className='uppercase h-full text-[2vw] logo-text font-semibold tracking-[1vh] dark:text-white'>Kiwi</p>
+                        </span>
+                        
+                    </span>
+                    
                 </div>
+                </a>
                 {/* Links */}
                 {elmtList.map((elmt, index) => (
-                    <a key={`${elmt}-${index}`} href={elmt.link}>
-                        <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg dark:text-dark-white text-neutral-500 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5'>
+                    <a href={elmt.link}>
+                        <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg text-neutral-500 dark:text-neutral-300 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5' key={`${elmt}-${index}`}>
                             <span className='text-2xl mr-4'>
                                 {elmt.icon}
                             </span>
