@@ -6,7 +6,6 @@ import SpotifyProvider from "next-auth/providers/spotify";
 import prisma from '../../../lib/prisma';
 import { LOGIN_URL, refreshAccessTokenSpotify } from "../../../lib/spotify";
 import { GOOGLE_AUTHORIZATION_URL, refreshAccessTokenGoogle } from '../../../lib/google';
-import { assert } from 'console';
 
 
 /* 
