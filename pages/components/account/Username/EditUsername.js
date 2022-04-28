@@ -35,18 +35,19 @@ function EditUsername() {
     }
 
     return (
-        <div className='flex flex-row rounded-xl w-full bg-dark-transparent-black dark:border-gray-600 border-[1px]'>
-            {/* session.user.name que l'on peut modifier avec un bouton edit. */}
+        <div className='flex flex-row rounded-xl w-full bg-white/50 border-transparent dark:bg-dark-transparent-black dark:border-gray-600 border-[1px]'>
+            {/* session.name que l'on peut modifier avec un bouton edit. */}
             <section aria-labelledby='Nom' className='m-2 w-full'>
                 <h2 id="Nom" className='font-medium mb-2 dark:text-dark-text'>Nom d'Utilisateur</h2>
                 <div className='flex flex-row h-8 justify-between'>
                     {/* Voir comment faire en sorte pour que l'utilisateur puisse modifier le champ. */}
-                    <input type='text' disabled={editUser} className='bg-dark-light-gray bg-opacity-[0.325] rounded-md w-2/3'
+                    <input type='text' disabled={editUser} className='bg-neutral-500 dark:bg-dark-light-gray bg-opacity-[0.325] rounded-md w-2/3'
                         onChange={(event) => setNewUserName(event.target.value)} />
-                    <button className='w-1/3 ml-4 bg-dark-soft-black rounded-md' onClick={() => changeUser()}>{editButton}</button>
+                    <button className='w-1/3 ml-4 bg-neutral-500 dark:bg-dark-soft-black rounded-md' onClick={() => changeUser()}>{editButton}</button>
                 </div>
             </section>
         </div>
+
     )
 }
 
