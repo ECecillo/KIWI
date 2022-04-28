@@ -60,12 +60,11 @@ export default function Account({ session, spotify_scope, google_scope }) {
 
 
 	return (
-		<div className="flex dark:bg-dark-black bg-white dark:text-dark-white">
-			<div className='hidden md:hidden lg:hidden xl:flex xl:w-1/6'>
-				<NavBar session={session} />
+		<div className="w-full xl:flex dark:bg-dark-black dark:text-dark-white">
+			<div className='hidden md:hidden lg:hidden xl:flex xl:w-1/4'>
+				<NavBar session={session}/>
 			</div>
-			<div className="flex basis-full
-            dark:bg-gradient-to-br dark:from-dark-gradient-right dark:via-dark-gradient-middle dark:to-dark-gradient-left">
+			<div className="flex basis-full bg-gradient-to-br from-[#FFDEE9] to-[#16a084d5] dark:from-dark-gradient-right dark:via-dark-gradient-middle dark:to-dark-gradient-left">
 				<div className='flex flex-col max-w-[95%] my-0 mx-auto'>
 					<section aria-labelledby='Compte' className='flex flex-rows mt-6'>
 						{/* Logo pour revenir en arrière */}
@@ -87,6 +86,7 @@ export default function Account({ session, spotify_scope, google_scope }) {
 						{/* Formulaire ou section dans laquel l'user va modifier son nom, la fonction doit aussi changer le nom dans la database. */}
 						<Profile />
 						<EditUsername />
+						
 						{/* Carte qui afficheront les infos de la session et les droits des tokens. */}
 						<Cards spotify={spotify_scope} google={google_scope} />
 						{/* Déconnexion et Supprimer mon Compte. */}
