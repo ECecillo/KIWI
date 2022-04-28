@@ -9,14 +9,17 @@ import { IoGrid } from 'react-icons/io5'
 import { FaUserFriends } from 'react-icons/fa'
 
 
-function NavBar() {
+function NavBar({ session }) {
 
-    const elmtList = [{name:"Accueil", icon:<MdHomeFilled/>, link:"/"},
-                      {name:"Tendances", icon:<AiOutlineLineChart/>, link:"/trends"},
-                      {name:"Favoris", icon:<MdFavorite/>, link:"/favorites"},
-                      {name:"Playlists", icon:<IoGrid/>, link:"playlists"},
-                      {name:"Amis", icon:<FaUserFriends/>, link:"/friends"},
+    const elmtList = [
+        { name: "Accueil", icon: <MdHomeFilled />, link: "/" },
+        { name: "Tendances", icon: <AiOutlineLineChart />, link: "/trends" },
+        { name: "Favoris", icon: <MdFavorite />, link: "/favorites" },
+        { name: "Playlists", icon: <IoGrid />, link: "playlists" },
+        { name: "Amis", icon: <FaUserFriends />, link: "/friends" },
     ];
+
+    //const session = useRecoilValue(sessionState);
 
     return (
         <div className='navbar hidden md:flex flex-col basis-1/6 h-screen divide-y-2 divide-slate-200 dark:bg-dark-black relative '>
@@ -27,8 +30,8 @@ function NavBar() {
                 </div>
                 {/* Links */}
                 {elmtList.map((elmt, index) => (
-                    <a href={elmt.link}>
-                        <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg text-neutral-500 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5' key={`${elmt}-${index}`}>
+                    <a key={`${elmt}-${index}`} href={elmt.link}>
+                        <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg dark:text-dark-white text-neutral-500 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5'>
                             <span className='text-2xl mr-4'>
                                 {elmt.icon}
                             </span>
@@ -40,7 +43,7 @@ function NavBar() {
                 ))}
             </div>
             {/* User */}
-            <User/>
+            <User session={session} />
         </div>
     )
 }

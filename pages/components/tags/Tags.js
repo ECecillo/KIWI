@@ -1,14 +1,14 @@
-function Tags(props){
+function Tags(props) {
     const tags = props.tagslist;
     //console.log(typeof(tags));
-    return(
-        <div id="tags" className="">
-            {tags.map((elmt, index) => (
+    return (
+        tags.map(({id, tag} ) => (
+            <div key={`${tag}-${id}`} id="tags">
                 <button className="bg-white rounded-full w-fit h-fit p-3 m-1">
-                    <p className="font-sans text-md">{elmt.tag}</p>
+                    <p className="font-sans text-md">{tag}</p>
                 </button>
-            ))}
-        </div>
+            </div>
+        ))
     )
 };
 
