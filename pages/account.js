@@ -4,12 +4,12 @@ import NavBar from "./components/navbar/NavBar";
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import Profile from "./components/account/Profile/profile";
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { imageState, infoHasChanged, userNameState } from '../atoms/userAtom';
+import { useRecoilState } from 'recoil';
+import { imageState, infoHasChanged, sessionState, userNameState } from '../atoms/userAtom';
 import { BiArrowBack } from 'react-icons/bi';
 import Cards from './components/account/Providers/Cards';
 import { scopes } from '../lib/spotify';
-
+import EditUsername from './components/account/Username/EditUsername';
 
 // @id : Number = Id dans la base de donnée de l'utilisateur.
 async function deleteAccount(id) {
@@ -37,6 +37,9 @@ async function saveChanges(id, data) {
 export default function Account({ session, spotify_scope, google_scope }) {
 	const userHasValidSession = Boolean(session);
 
+	const [sessionUser, setSessionUser] = useRecoilState(sessionState);
+	setSessionUser(session);
+
 	// Des globales state que les fils du composant account partage, sert entre autre à connaitre le nouveau pseudo et image.
 	const [newUserImage, setNewUserImage] = useRecoilState(imageState);
 	const [newUserName, setNewUserName] = useRecoilState(userNameState);
@@ -44,47 +47,22 @@ export default function Account({ session, spotify_scope, google_scope }) {
 	// Lorsque l'on modifira le pseudo ou l'image, cette variable passera à true pour savoir si on affiche ou non le bouton enregistrer.
 	const [hasChanged, sethasChanged] = useRecoilState(infoHasChanged);
 
-	// state qui va nous permettre d'activer l'input dans lequel l'utilisateur va pouvoir changer son pseudo. 
-	const [editUser, setEditUser] = useState("disabled");
-	const [editButton, setEditButton] = useState("Edit");
-	function changeUser() {
-		// On check si le bouton est activé ou non via le state.
-		if (editUser) {
-			// On donne la possibilité de modifier le champ.
-			setEditUser("");
-			// On modifie le texte dans le bouton pour qu'il passe à Confirmer.
-			setEditButton("Confirmer");
-		}
-		else if (!editUser) {
-			// On réactive la propriété disable de l'input.
-			setEditUser("disabled");
-			// On remet le texte du bouton à la valeur Edit.
-			setEditButton("Edit");
-			// On check si le nom a changé pour passer le hasChanged à true.
-			if(newUserName) {
-				sethasChanged(true);
-			}
-		}
-		else {
-			console.log("Erreur");
-		}
-	}
 	// Callback que l'on appelle lorsque l'on clique sur le bouton reinitialiser qui s'affiche ssi on a modifier quelque chose.
 	const reinitialise = () => {
 		setNewUserImage("");
 		setNewUserName("");
 	};
-	// TODO3 : Afficher son nom avec les différents provider et mettre un bouton de deconnexion.
-	// TODO4 : Si il ne s'est pas co avec un des providers lui proposer.
-	// TODO5: Lui proposer de se déco.
+
 	const router = useRouter();
 	const isActive = (pathname) => { // Attend un string
 		return router.pathname === pathname;
 	};
+
+
 	return (
-		<div className="w-full xl:flex dark:bg-dark-black dark:text-dark-white bg-white">
-			<div className='hidden md:hidden lg:hidden xl:flex xl:w-1/4'>
-				<NavBar />
+		<div className="flex dark:bg-dark-black bg-white dark:text-dark-white">
+			<div className='hidden md:hidden lg:hidden xl:flex xl:w-1/6'>
+				<NavBar session={session} />
 			</div>
 			<div className="flex basis-full
             dark:bg-gradient-to-br dark:from-dark-gradient-right dark:via-dark-gradient-middle dark:to-dark-gradient-left">
@@ -108,20 +86,9 @@ export default function Account({ session, spotify_scope, google_scope }) {
 					<div className='flex flex-col mt-20 gap-10 items-center sm:items-start'>
 						{/* Formulaire ou section dans laquel l'user va modifier son nom, la fonction doit aussi changer le nom dans la database. */}
 						<Profile />
-						<div className='flex flex-row rounded-xl w-full bg-dark-transparent-black dark:border-gray-600 border-[1px]'>
-							{/* session.name que l'on peut modifier avec un bouton edit. */}
-							<section aria-labelledby='Nom' className='m-2 w-full'>
-								<h2 id="Nom" className='font-medium mb-2 dark:text-dark-text'>Nom d'Utilisateur</h2>
-								<div className='flex flex-row h-8 justify-between'>
-									{/* Voir comment faire en sorte pour que l'utilisateur puisse modifier le champ. */}
-									<input type='text' disabled={editUser} className='bg-dark-light-gray bg-opacity-[0.325] rounded-md w-2/3'
-									onChange={(event) => setNewUserName(event.target.value)}/>
-									<button className='w-1/3 ml-4 bg-dark-soft-black rounded-md' onClick={() => changeUser()}>{editButton}</button>
-								</div>
-							</section>
-						</div>
+						<EditUsername />
 						{/* Carte qui afficheront les infos de la session et les droits des tokens. */}
-						<Cards session={session} spotify={spotify_scope} google={google_scope} />
+						<Cards spotify={spotify_scope} google={google_scope} />
 						{/* Déconnexion et Supprimer mon Compte. */}
 						<div className='flex flex-col sm:flex-row space-y-4 sm:justify-around sm:items-center sm:space-y-0 dark:text-dark-text max-h-fit h-fit sm:w-full'>
 							{/* Bouton de deconnexion */}
