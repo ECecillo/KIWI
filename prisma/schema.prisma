@@ -30,6 +30,7 @@ model Playlist {
   playlist_id         String  @id @default(cuid())
   playlist_name       String
   playlist_image      String? // Si on veut rattacher une image à la playlist.
+  playlist_url        String
   playlist_visibility Boolean // Si on veut mettre la playlist en mode publique ou privé. (true: publique, false : privé)
 
 
@@ -41,14 +42,15 @@ model Playlist {
 }
 
 model Song {
-  song_id    Int @id @default(autoincrement())
-  spotify_id Int // ID associés à la musique correspondant à l'API Spotify
-  youtube_id Int // ID associés à la musique correspondant à l'API Youtube
+  song_id    Int    @id @default(autoincrement())
+  youtube_id String @unique // ID associés à la musique correspondant à l'API Youtube
 
-  spotify_url String // Colonne qui va nous servir à stocker l'url qui permet de jouer la musique à l'url stocké.
-  youtube_url String // Colonne qui va nous servir à stocker l'url qui permet de jouer la musique à l'url stocké.
-  song_name   String // Nom de la Musique.
-  song_year   Int?
+  youtube_url     String // Colonne qui va nous servir à stocker l'url qui permet de jouer la musique à l'url stocké.
+  song_thumbnails String // Le lien vers l'image de la Musique.
+  song_name       String // Nom de la Musique.
+  song_year       Int? // Annee de publication.
+  song_duration   String? // Temps en ms.
+  song_view       Int? // Nombre de vue ou écoute musique.
 
   // Une musique peut avoir plusieurs Genre et un Genre peut avoir plusieurs musiques.
   song_genres  Genre?  @relation(fields: [song_genreId], references: [genre_id])
@@ -56,16 +58,18 @@ model Song {
 
 
   // Une Musique est rattaché à un artiste (même une musique en colab reste à un artiste)
-  song_artist   Artist @relation(fields: [song_artistId], references: [artist_id])
-  song_artistId String
+  song_artist   Artist? @relation(fields: [song_artistId], references: [artist_id])
+  song_artistId String?
 
   // Une Musique est dans 1 seul Album.
-  song_album   Album  @relation(fields: [song_albumId], references: [album_id])
-  song_albumId String
+  song_album   Album?  @relation(fields: [song_albumId], references: [album_id])
+  song_albumId String?
 
   // Une musique appartient à plusieurs playlist.
   song_playlist   Playlist? @relation(fields: [song_playlistId], references: [playlist_id])
   song_playlistId String?
+
+
 }
 
 model Artist {
@@ -146,8 +150,8 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Permet de stocker les tokens valides donnée par les providers lors de la connexion.
