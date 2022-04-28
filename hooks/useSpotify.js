@@ -7,8 +7,7 @@ const spotifyApi = new SpotifyWebApi({
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   });
 
-function useSpotify() {
-    const { data: session, status } = useSession();
+function useSpotify(session) {
     useEffect(()=> {
         if(session) {
             // Si on a eu un problème dans la récupération du nouveau token et on redirige l'user vers la page de connexion.
