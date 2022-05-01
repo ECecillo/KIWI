@@ -15,7 +15,7 @@ function useSpotify(session) {
                 signIn();
             }
             if(session.spotify) {
-                spotifyApi.setAccessToken(session.spotify.accessToken);
+                spotifyApi.setAccessToken(session.spotify.access_token);
             }
         }
     },[session]); // Se lance au lancement de l'app et lorsque session est bien défini.
