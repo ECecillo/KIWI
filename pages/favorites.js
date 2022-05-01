@@ -4,12 +4,17 @@ import RightSection from './components/rightSection/RightSection';
 import FullContent from './components/fullContent/fullContent';
 import UserFavorites from './components/userFavorites/UserFavorites';
 
-function favorites() {
+function favorites({session}) {
     
     return (
-        <div className='flex flex-row'>
-            <NavBar/>
-            <FullContent compo={<React.Fragment><UserFavorites/><RightSection/></React.Fragment>}/>
+        <div className='flex'>
+            <NavBar session={session}/>
+            <FullContent session={session}>
+                <React.Fragment>
+                    <UserFavorites session={session} />
+                    <RightSection />
+                </React.Fragment>
+            </FullContent>
         </div>
     )
 }

@@ -5,35 +5,26 @@ import { useSession } from 'next-auth/react';
 import useSpotify from '../../../hooks/useSpotify';
 import MusicInfos from './../musicinfo/MusicInfos';
 
-function UserFavorites() {
+function UserFavorites({session}) {
 
-    const spotifyApi = useSpotify();
-    const {data: session, status} = useSession();
+    const spotifyApi = useSpotify(session);
     let [favorites, setFavorites] = useState([]);
-    let copie = {};
-
 
     useEffect(() => {
         if(spotifyApi.getAccessToken()){
-            for(let i=0 ; i<5 ; i++){
-                spotifyApi.getMySavedTracks({
-                                        offset: 0+i*50,
-                                        limit: 50}).then((data) => {
-                    setFavorites(data.body.items);                    
-                })
-                copie = Object.assign({}, copie, favorites);
-            }
+            spotifyApi.getMySavedTracks().then((data) => {
+                setFavorites(data.body.items);
+            })
         }
     }, [session, spotifyApi]);
 
-    console.log(copie);
-    
+    console.log(favorites);
 
     return (
         <div className="content relative mx-6 pt-6 md:h-screen lg:h-full basis-full lg:basis-10/12">
             <SearchBar/>
-            <p className='font-sans text-4xl font-semibold my-8 pt-5 pb-2 p-10'>Mes morceaux favoris</p>
-            <div className='music-infos grid grid-cols-5 font-sans select-none uppercase text-black-500 text-md px-5 pb-5 ' >
+            <p className='font-sans text-3xl font-semibold mt-8 mb-4 pt-5 pl-5 dark:text-white'>Mes morceaux favoris</p>
+            <div className='music-infos grid grid-cols-5 font-sans select-none uppercase text-black-500 text-md px-5 pb-5 dark:text-white' >
                 <p>#</p>
                 <p>Titre</p>
                 <p>Artiste</p>
