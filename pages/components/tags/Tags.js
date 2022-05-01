@@ -4,7 +4,7 @@ function Tags(props) {
     return (
         tags.map(({id, tag} ) => (
             <div key={`${tag}-${id}`} id="tags">
-                <button className="bg-white rounded-full w-fit h-fit p-3 m-1">
+                <button className="bg-white dark:bg-neutral-700 dark:text-white rounded-full w-fit h-fit p-3 m-1">
                     <p className="font-sans text-md">{tag}</p>
                 </button>
             </div>
