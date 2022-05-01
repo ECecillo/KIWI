@@ -8,10 +8,10 @@ import { sessionState } from '../../../atoms/userAtom';
 
 function NavBarMobile({session}) {
     //const {user, ...session} = useRecoilValue(sessionState);
-    const profilePicture = session.user.image === "" ? baseImage : session.user.image;
+    const profilePicture = session?.user?.image === "" ? baseImage : session?.user?.image;
 
     return (
-        <div className='md:hidden grid grid-cols-5 py-2 basis-1/12 text-xs'>
+        <div className='md:hidden grid grid-cols-5 py-2 basis-1/12 text-xs dark:text-white dark:bg-dark-soft-black'>
             <div>
                 <a href="/" className="flex flex-col items-center justify-center">
                     <MdHomeFilled className='h-8 w-8'/>
