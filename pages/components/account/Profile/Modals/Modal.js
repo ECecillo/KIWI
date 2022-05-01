@@ -53,8 +53,8 @@ export function Modal(props) {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <div className="relative inline-block align-middle dark:bg-dark-light-gray rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-[90%]">
-                                <div className="dark:bg-dark-gray bg-white px-2 pt-2 pb-4 sm:p-6 sm:pb-4">
+                            <div className="relative inline-block align-middle  rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-[90%]">
+                                <div className="dark:bg-dark-gray bg-white px-2 pt-2 pb-4 sm:p-6 sm:pb-4 dark:bg-dark-soft-black">
                                     <div className="sm:flex sm:items-start">
                                         <div className="w-full mt-2 text-center sm:mt-0 sm:text-left">
                                             <section aria-labelledby='Edit_Image' className="flex justify-between items-start rounded-t">

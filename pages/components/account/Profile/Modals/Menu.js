@@ -8,7 +8,7 @@ export function ChangeImageModal({ handleUrlModal, handleGiphyModal }) {
         <>
             <div className="mt-5 flex flex-row">
                 {/* Ajouter un lien vers une image */}
-                <div className='flex flex-col justify-items-center text-center bg-neutral-400 mr-2 w-1/2 rounded-md ease-in duration-200 hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)]'>
+                <div className='flex flex-col justify-items-center text-center bg-neutral-400 dark:bg-neutral-700 mr-2 w-1/2 rounded-md ease-in duration-200 hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)]'>
                     <button className='my-0 mx-auto' onClick={handleUrlModal}>
                         {/* Image */}
                         <div className='ease-in duration-200 hover:scale-105 dark:bg-dark-white p-9 rounded-full my-4 w-fit' >
@@ -21,7 +21,7 @@ export function ChangeImageModal({ handleUrlModal, handleGiphyModal }) {
                     </p>
                 </div>
                 {/* Rechercher sur Imgur Giphy */}
-                <div className="flex flex-col justify-items-center text-center bg-neutral-400 ml-2 w-1/2 rounded-md hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)]">
+                <div className="flex flex-col justify-items-center text-center bg-neutral-400 dark:bg-neutral-700 ml-2 w-1/2 rounded-md hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)]">
                     <button className='ease-in duration-200 hover:scale-105 my-0 mx-auto'
                         type="button"
                         data-modal-toggle="defaultModal"
