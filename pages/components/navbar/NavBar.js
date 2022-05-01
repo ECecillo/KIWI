@@ -7,6 +7,7 @@ import { MdHomeFilled, MdFavorite } from 'react-icons/md'
 import { AiOutlineLineChart } from 'react-icons/ai'
 import { IoGrid } from 'react-icons/io5'
 import { FaUserFriends } from 'react-icons/fa'
+import Link from 'next/link';
 
 
 function NavBar({ session }) {
@@ -19,7 +20,7 @@ function NavBar({ session }) {
         { name: "Amis", icon: <FaUserFriends />, link: "/friends" },
     ];
 
-    //const session = useRecoilValue(sessionState);
+    console.log(session);
 
     return (
         <div className='navbar hidden md:flex flex-col basis-1/6 h-screen divide-y-2 divide-slate-200 dark:bg-[#042119] relative'>
@@ -41,7 +42,7 @@ function NavBar({ session }) {
                 </a>
                 {/* Links */}
                 {elmtList.map((elmt, index) => (
-                    <a href={elmt.link}>
+                    <Link href={elmt.link} state={{session:session}}>
                         <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg text-neutral-500 dark:text-neutral-300 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5' key={`${elmt}-${index}`}>
                             <span className='text-2xl mr-4'>
                                 {elmt.icon}
@@ -50,7 +51,7 @@ function NavBar({ session }) {
                                 {elmt.name}
                             </p>
                         </div>
-                    </a>
+                    </Link>
                 ))}
             </div>
             {/* User */}
