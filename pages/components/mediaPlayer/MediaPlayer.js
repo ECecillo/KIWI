@@ -11,7 +11,31 @@ import { MdZoomOutMap } from 'react-icons/md';
 import useControls from '../../../hooks/useControls';
 import { useCallback, useEffect, useState } from 'react';
 import { debounce } from 'lodash';
+import { durationCurrentSong } from '../../../atoms/songAtom';
 
+function getDuration(minutes, secondes){
+    let result = "";
+    if(minutes < 10){
+        result+="0" + minutes + ":";
+    }
+    else if(minutes>=10){
+        result+=minutes + ":";
+    }
+    if(secondes <10){
+        result+="0" + secondes;
+    }
+    else if(secondes>=10){
+        result+=secondes;
+    }
+    return result;
+}
+
+function getTimePlayed(duration){
+    let minutes = Math.round(duration/60);
+    let secondes = Math.round(duration%60);
+    let result = getDuration(minutes, secondes);
+    return result 
+}
 
 function MediaPlayer() {
     const {
@@ -114,14 +138,14 @@ function MediaPlayer() {
                 </span>
             </div>
             <div className='flex flex-row justify-center items-center'>
-                <p>0:43</p>
+                <p>{getTimePlayed(played*duration)}</p>
                 <input className='w-10/12 mx-3'
                     type='range' min={0} max={0.999999} step='any'
                     value={played}
                     onMouseDown={handleSeekMouseDown}
                     onChange={handleSeekChange}
                     onMouseUp={handleSeekMouseUp} />
-                <p>{minutes}:{seconds}</p>
+                <p>{getDuration(minutes, seconds)}</p>
             </div>
         </div>
     )
