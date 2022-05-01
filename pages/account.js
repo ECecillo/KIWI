@@ -61,7 +61,7 @@ export default function Account({ session, spotify_scope, google_scope }) {
 
 	return (
 		<div className="w-full xl:flex dark:bg-dark-black dark:text-dark-white">
-			<div className='hidden md:hidden lg:hidden xl:flex xl:w-1/4'>
+			<div className='basis-1/6'>
 				<NavBar session={session}/>
 			</div>
 			<div className="flex basis-full bg-gradient-to-br from-[#FFDEE9] to-[#16a084d5] dark:from-dark-gradient-right dark:via-dark-gradient-middle dark:to-dark-gradient-left">
