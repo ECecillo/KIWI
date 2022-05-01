@@ -62,16 +62,17 @@ function Content() {
                     </div>
                 )}
             </div>
-            <div className='flex flex-row'>
-                {searchResult.map((elmt, index) =>
-                    <div className="flex flex-col h-fit items-center rounded-2xl bg-black m-2 p-2 w-32" key={`${elmt}-${index}`} onClick={handlePlayMusic}>
-                        <img src={elmt.song_thumbnails} className="rounded-2xl aspect-square"></img>
-                        <p className="w-full overflow-hidden truncate text-center">{elmt.song_name}</p>
-                        <p className="w-full overflow-hidden truncate text-center">{elmt.song_view}</p>
-                        <p className="w-full overflow-hidden truncate text-center">{elmt.song_duration}</p>
-                    </div>
-                )}
-            </div>
+            <div className="absolute flex flex-wrap justify-center  h-3/6 overflow-auto scrollbar-hide hover: "> {/*  modif: h-3/5  ====> h-2/5 || edit: reverse car template tendance utilisé pour afficher les playlists */}
+            {searchResult.map((elmt, index) => (
+                <div className="flex flex-col h-fit items-center rounded-2xl  m-2 p-2 w-32 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] hover:bg-gradient-to-br hover:from-[#16a084d5] hover:via-yellow-300 hover:to-pink-300
+                dark:text-gray-500 dark:hover:bg-gradient-to-br dark:hover:from-neutral-900 dark:hover:via-fuchsia-900 dark:hover:to-indigo-900 dark:hover:text-white}" key={`${elmt}-${index}`} onClick={handlePlayMusic()}>
+                    <img src={elmt.song_thumbnails} className="rounded-2xl aspect-square"></img>
+                    <p className="w-full overflow-hidden truncate text-center">{elmt.song_name}</p>
+                    <p className="w-full overflow-hidden truncate text-center">{elmt.song_thumbnails}</p>
+                    <p className="w-full overflow-hidden truncate text-center">{elmt.song_duration}</p>
+                </div>
+            ))}
+        </div>
             <MediaPlayer />
         </div>
     )
