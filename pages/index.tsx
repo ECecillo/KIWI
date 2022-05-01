@@ -1,4 +1,4 @@
-import React, from 'react'
+import React from 'react';
 import Layout from './components/layout/Layout';
 import FullContent from './components/fullContent/fullContent';
 import Content from './components/content/Content';
@@ -37,7 +37,7 @@ const Home : React.FC<Props> = (props) => {
             <Layout session={props.session}>
                 <FullContent session={props.session}>
                     <React.Fragment>
-                        <Content />
+                        <Content session={props.session} />
                         <RightSection />
                     </React.Fragment>
                 </FullContent>
