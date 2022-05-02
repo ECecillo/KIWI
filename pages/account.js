@@ -108,14 +108,14 @@ export default function Account({ session, spotify_scope, google_scope }) {
 						{/* Bouton pour enregistrer les modifications de l'utilisateur qui s'affiche lorsque userImage ou userName ont changées. */}
 						{hasChanged &&
 							<div className='fixed top-auto right-auto xl:right-1/4 bottom-0 left-[15%] sm:left-[20%] md:left-1/4 xl:left-auto justify-center'>
-								<div className='flex flex-col justify-center items-center text-center dark:bg-dark-transparent-black p-2 
+								<div className='flex flex-col justify-center items-center text-center bg-white/50 dark:bg-dark-transparent-black p-2 
 						sm:justify-self-center sm:self-center sm:flex-row sm:justify-around sm:p-2 rounded-md w-10/12 sm:w-[80%] lg:w-full'>
 									<div>
 										<button className='sm:mr-5 lg:mr-16' onClick={() => reinitialise}>
 											Réinitialiser
 										</button>
 										<button
-											onClick={() => saveChanges(session.user.userId, { newUserImage, newUserName })} className='p-1 dark:bg-[#2F7B47] rounded-md'>Enregistrer les modifications</button>
+											onClick={() => saveChanges(session.user.userId, { newUserImage, newUserName })} className='p-1 bg-[#309e53] text-white dark:bg-[#2F7B47] rounded-md'>Enregistrer les modifications</button>
 									</div>
 								</div>
 							</div>

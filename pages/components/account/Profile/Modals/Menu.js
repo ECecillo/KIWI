@@ -11,7 +11,7 @@ export function ChangeImageModal({ handleUrlModal, handleGiphyModal }) {
                 <div className='flex flex-col justify-items-center text-center bg-neutral-400 dark:bg-neutral-700 mr-2 w-1/2 rounded-md ease-in duration-200 hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)]'>
                     <button className='my-0 mx-auto' onClick={handleUrlModal}>
                         {/* Image */}
-                        <div className='ease-in duration-200 hover:scale-105 dark:bg-dark-white p-9 rounded-full my-4 w-fit' >
+                        <div className='ease-in duration-200 hover:scale-105 bg-white dark:bg-dark-white p-9 rounded-full my-4 w-fit' >
                             <BiImageAdd color='black' className='w-10 h-10' />
                         </div>
                     </button>
@@ -27,7 +27,7 @@ export function ChangeImageModal({ handleUrlModal, handleGiphyModal }) {
                         data-modal-toggle="defaultModal"
                         onClick={handleGiphyModal}>
                         {/* Image */}
-                        <div className='dark:bg-dark-white p-9 rounded-full my-4 w-fit'>
+                        <div className='dark:bg-dark-white p-9 rounded-full bg-white my-4 w-fit'>
                             <AiOutlineGif color='black' className=' w-10 h-10' />
                         </div>
                     </button>
