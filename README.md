@@ -67,7 +67,9 @@ npm run dev
 ### Variables d’environnement `.env`
 
 ---
+(le fichier .env a été transmis à monsieur RICO et CAZABET)
 
+Placer le fichier .env à la racine du projet puis y mettre le contenu suivant :
 ```bash
 NEXTAUTH_URL=http://localhost:3000/api/auth
 
