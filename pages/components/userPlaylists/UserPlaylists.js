@@ -17,6 +17,8 @@ function UserPlaylists({session}) {
         }
     }, [session, spotifyApi]);
 
+    console.log(playlists);
+
     return (
         <div className="content relative mx-6 pt-6 md:h-screen lg:h-full basis-full lg:basis-10/12">
             <SearchBar/>

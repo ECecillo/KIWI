@@ -42,7 +42,7 @@ function NavBar({ session }) {
                 </a>
                 {/* Links */}
                 {elmtList.map((elmt, index) => (
-                    <Link href={elmt.link} state={{session:session}}>
+                    <a href={elmt.link}>
                         <div className='element flex flex-row items-center h-12 my-1 ml-4 rounded-xl text-lg text-neutral-500 dark:text-neutral-300 hover:bg-black fill-neutral-500 hover:text-white hover:fill-white lg:pl-5' key={`${elmt}-${index}`}>
                             <span className='text-2xl mr-4'>
                                 {elmt.icon}
@@ -51,7 +51,7 @@ function NavBar({ session }) {
                                 {elmt.name}
                             </p>
                         </div>
-                    </Link>
+                    </a>
                 ))}
             </div>
             {/* User */}

@@ -18,14 +18,6 @@ function RightSection() {
             <Tags tagslist={tagslist} />
 
             <div className="infos-music-playing absolute inset-x-0 bottom-0 p-6 mb-6 flex flex-col items-center gap-2 rounded-3xl bg-white dark:bg-dark-soft-black drop-shadow-2xl">
-                {/* <img id='music-cover' className='aspect-square w-full rounded-3xl' src={albumCover.src} alt="cover music playing"></img>
-                
-                <div className='infos-music w-full'>
-                    <span>
-                        <p id='music-title' className='font-sans text-lg font-semibold'>Till It's Gone</p>
-                        <p id='music-artist' className='font-sans text-neutral-500'>Yelawolf</p>
-                    </span>
-                </div> */}
                 <Video />
                 <div className='infos-music w-full'>
                     <span>

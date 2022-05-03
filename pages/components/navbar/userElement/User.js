@@ -12,7 +12,8 @@ import { useRouter } from 'next/router';
  * @returns 
  */
 export default function User({session}) {
-
+    console.log("user");
+    console.log(session);
     // On va vérifier que la page auxquels on va accéder à chaque fois que l'on clique sur un lien existe dans notre app (réduit les soucis erreurs).
     const router = useRouter();
 
