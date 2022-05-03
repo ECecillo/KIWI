@@ -1,43 +1,43 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { AiOutlineGif } from 'react-icons/ai';
-import { BiImageAdd } from 'react-icons/bi';
+import { AiOutlineGif } from 'react-icons/ai'
+import { BiImageAdd } from 'react-icons/bi'
 
 export function ChangeImageModal({ handleUrlModal, handleGiphyModal }) {
-
-    return (
-        <>
-            <div className="mt-5 flex flex-row">
-                {/* Ajouter un lien vers une image */}
-                <div className='flex flex-col justify-items-center text-center bg-neutral-400 dark:bg-neutral-700 mr-2 w-1/2 rounded-md ease-in duration-200 hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)]'>
-                    <button className='my-0 mx-auto' onClick={handleUrlModal}>
-                        {/* Image */}
-                        <div className='ease-in duration-200 hover:scale-105 bg-white dark:bg-dark-white p-9 rounded-full my-4 w-fit' >
-                            <BiImageAdd color='black' className='w-10 h-10' />
-                        </div>
-                    </button>
-                    {/* Texte en dessous */}
-                    <p className='dark:text-dark-white font-semibold'>
-                        Ajouter mon lien
-                    </p>
-                </div>
-                {/* Rechercher sur Imgur Giphy */}
-                <div className="flex flex-col justify-items-center text-center bg-neutral-400 dark:bg-neutral-700 ml-2 w-1/2 rounded-md hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)]">
-                    <button className='ease-in duration-200 hover:scale-105 my-0 mx-auto'
-                        type="button"
-                        data-modal-toggle="defaultModal"
-                        onClick={handleGiphyModal}>
-                        {/* Image */}
-                        <div className='dark:bg-dark-white p-9 rounded-full bg-white my-4 w-fit'>
-                            <AiOutlineGif color='black' className=' w-10 h-10' />
-                        </div>
-                    </button>
-                    {/* Texte pour Imgur */}
-                    <p className='dark:text-dark-white font-semibold mb-4'>
-                        Rechercher sur Giphy
-                    </p>
-                </div>
-            </div></>
-    );
-};
+  return (
+    <>
+      <div className="mt-5 flex flex-row">
+        {/* Ajouter un lien vers une image */}
+        <div className="mr-2 flex w-1/2 flex-col justify-items-center rounded-md bg-neutral-400 text-center duration-200 ease-in hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)] dark:bg-neutral-700">
+          <button className="my-0 mx-auto" onClick={handleUrlModal}>
+            {/* Image */}
+            <div className="my-4 w-fit rounded-full bg-white p-9 duration-200 ease-in hover:scale-105 dark:bg-dark-white">
+              <BiImageAdd color="black" className="h-10 w-10" />
+            </div>
+          </button>
+          {/* Texte en dessous */}
+          <p className="font-semibold dark:text-dark-white">Ajouter mon lien</p>
+        </div>
+        {/* Rechercher sur Imgur Giphy */}
+        <div className="ml-2 flex w-1/2 flex-col justify-items-center rounded-md bg-neutral-400 text-center hover:drop-shadow-[0_35px_35px_rgba(0,125,255,0.25)] dark:bg-neutral-700">
+          <button
+            className="my-0 mx-auto duration-200 ease-in hover:scale-105"
+            type="button"
+            data-modal-toggle="defaultModal"
+            onClick={handleGiphyModal}
+          >
+            {/* Image */}
+            <div className="my-4 w-fit rounded-full bg-white p-9 dark:bg-dark-white">
+              <AiOutlineGif color="black" className=" h-10 w-10" />
+            </div>
+          </button>
+          {/* Texte pour Imgur */}
+          <p className="mb-4 font-semibold dark:text-dark-white">
+            Rechercher sur Giphy
+          </p>
+        </div>
+      </div>
+    </>
+  )
+}
 
 //bg-dark-soft-black

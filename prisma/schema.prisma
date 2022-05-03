@@ -2,99 +2,99 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+    provider          = "postgresql"
+    url               = env("DATABASE_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
-  id            String     @id @default(cuid())
-  name          String?
-  email         String?    @unique
-  emailVerified DateTime?  @map("email_verified")
-  image         String?
-  playlists     Playlist[] // Défini le contenu comme une liste de Post. ([])
+    id            String     @id @default(cuid())
+    name          String?
+    email         String?    @unique
+    emailVerified DateTime?  @map("email_verified")
+    image         String?
+    playlists     Playlist[] // Défini le contenu comme une liste de Post. ([])
 
 
-  accounts Account[]
-  sessions Session[]
+    accounts Account[]
+    sessions Session[]
 
-  @@map("users")
+    @@map("users")
 }
 
 model Playlist {
-  playlist_id         String  @id @default(cuid())
-  playlist_name       String
-  playlist_image      String? // Si on veut rattacher une image à la playlist.
-  playlist_url        String
-  playlist_visibility Boolean // Si on veut mettre la playlist en mode publique ou privé. (true: publique, false : privé)
+    playlist_id         String  @id @default(cuid())
+    playlist_name       String
+    playlist_image      String? // Si on veut rattacher une image à la playlist.
+    playlist_url        String
+    playlist_visibility Boolean // Si on veut mettre la playlist en mode publique ou privé. (true: publique, false : privé)
 
 
-  owner   User?   @relation(fields: [ownerId], references: [id])
-  ownerId String?
+    owner   User?   @relation(fields: [ownerId], references: [id])
+    ownerId String?
 
-  // Une playlist peut avoir plusieurs musiques.
-  playlist_songs Song[]
+    // Une playlist peut avoir plusieurs musiques.
+    playlist_songs Song[]
 }
 
 model Song {
-  song_id    Int    @id @default(autoincrement())
-  youtube_id String @unique // ID associés à la musique correspondant à l'API Youtube
+    song_id    Int    @id @default(autoincrement())
+    youtube_id String @unique // ID associés à la musique correspondant à l'API Youtube
 
-  youtube_url     String // Colonne qui va nous servir à stocker l'url qui permet de jouer la musique à l'url stocké.
-  song_thumbnails String // Le lien vers l'image de la Musique.
-  song_name       String // Nom de la Musique.
-  song_year       Int? // Annee de publication.
-  song_duration   String? // Temps en ms.
-  song_view       Int? // Nombre de vue ou écoute musique.
+    youtube_url     String // Colonne qui va nous servir à stocker l'url qui permet de jouer la musique à l'url stocké.
+    song_thumbnails String // Le lien vers l'image de la Musique.
+    song_name       String // Nom de la Musique.
+    song_year       Int? // Annee de publication.
+    song_duration   String? // Temps en ms.
+    song_view       Int? // Nombre de vue ou écoute musique.
 
-  // Une musique peut avoir plusieurs Genre et un Genre peut avoir plusieurs musiques.
-  song_genres  Genre?  @relation(fields: [song_genreId], references: [genre_id])
-  song_genreId String?
+    // Une musique peut avoir plusieurs Genre et un Genre peut avoir plusieurs musiques.
+    song_genres  Genre?  @relation(fields: [song_genreId], references: [genre_id])
+    song_genreId String?
 
 
-  // Une Musique est rattaché à un artiste (même une musique en colab reste à un artiste)
-  song_artist   Artist? @relation(fields: [song_artistId], references: [artist_id])
-  song_artistId String?
+    // Une Musique est rattaché à un artiste (même une musique en colab reste à un artiste)
+    song_artist   Artist? @relation(fields: [song_artistId], references: [artist_id])
+    song_artistId String?
 
-  // Une Musique est dans 1 seul Album.
-  song_album   Album?  @relation(fields: [song_albumId], references: [album_id])
-  song_albumId String?
+    // Une Musique est dans 1 seul Album.
+    song_album   Album?  @relation(fields: [song_albumId], references: [album_id])
+    song_albumId String?
 
-  // Une musique appartient à plusieurs playlist.
-  song_playlist   Playlist? @relation(fields: [song_playlistId], references: [playlist_id])
-  song_playlistId String?
+    // Une musique appartient à plusieurs playlist.
+    song_playlist   Playlist? @relation(fields: [song_playlistId], references: [playlist_id])
+    song_playlistId String?
 
 
 }
 
 model Artist {
-  artist_id   String @id @default(cuid()) // PK
-  artist_name String
+    artist_id   String @id @default(cuid()) // PK
+    artist_name String
 
-  // Un artiste peut avoir plusieurs Musiques.
-  artist_song Song[]
+    // Un artiste peut avoir plusieurs Musiques.
+    artist_song Song[]
 }
 
 model Genre {
-  genre_id   String @id @default(cuid()) // PK
-  genre_name String
+    genre_id   String @id @default(cuid()) // PK
+    genre_name String
 
-  // Un genre peut avoir plusieurs Musiques.
-  genre_songs Song[]
+    // Un genre peut avoir plusieurs Musiques.
+    genre_songs Song[]
 }
 
 model Album {
-  album_id   String @id @default(cuid())
-  album_name String
-  album_year Int
+    album_id   String @id @default(cuid())
+    album_name String
+    album_year Int
 
-  // Un album peut avoir plusieurs musiques.
-  album_song Song[]
+    // Un album peut avoir plusieurs musiques.
+    album_song Song[]
 }
 
 // Les tables nécessaires pour NextAuth :
@@ -122,43 +122,43 @@ model Album {
 // userId Int
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
-  oauth_token_secret String?
-  oauth_token        String?
-  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id                 String  @id @default(cuid())
+    userId             String
+    type               String
+    provider           String
+    providerAccountId  String
+    refresh_token      String? @db.Text
+    access_token       String? @db.Text
+    expires_at         Int?
+    token_type         String?
+    scope              String?
+    id_token           String? @db.Text
+    session_state      String?
+    oauth_token_secret String?
+    oauth_token        String?
+    user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
 
 
-  @@unique([provider, providerAccountId])
-  @@index([userId], name: "userId")
+    @@unique([provider, providerAccountId])
+    @@index([userId], name: "userId")
 }
 
 // Va nous permettre de gérer la session active de l'user.
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Permet de stocker les tokens valides donnée par les providers lors de la connexion.
 model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+    identifier String
+    token      String   @unique
+    expires    DateTime
 
-  @@unique([identifier, token])
+    @@unique([identifier, token])
 }
