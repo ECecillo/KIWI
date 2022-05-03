@@ -6,9 +6,6 @@ import RightSection from './components/rightSection/RightSection';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-import { useRecoilState } from 'recoil';
-import {sessionState} from '../atoms/userAtom';
-
 
 /**
  * Récupère côté serveur la session et côté client on la stockera avec notre state manager.
