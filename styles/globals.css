@@ -3,31 +3,31 @@
 @tailwind utilities;
 
 @media (min-width: 768px) {
-    .music-infos{
-        grid-template-columns: 5% 30% 30% 10% 30%;
-    }
+  .music-infos {
+    grid-template-columns: 5% 30% 30% 10% 30%;
+  }
 }
 
-@media (max-width: 767px){
-    .music-infos{
-        grid-template-columns: 10% 40% 40% 10%;
-    }
+@media (max-width: 767px) {
+  .music-infos {
+    grid-template-columns: 10% 40% 40% 10%;
+  }
 }
 
 @font-face {
-    font-family: "Proxima Nova";
-    src: url("./fonts/ProximaNovaFont.otf");
+  font-family: 'Proxima Nova';
+  src: url('./fonts/ProximaNovaFont.otf');
 }
 
-.icon-nav{
-    z-index: 3;
+.icon-nav {
+  z-index: 3;
 }
 
-.icon-nav:hover{
-    color: white;
-    z-index: 3;
+.icon-nav:hover {
+  color: white;
+  z-index: 3;
 }
 
-.logo-text{
-    font-family: "Proxima Nova";
+.logo-text {
+  font-family: 'Proxima Nova';
 }
